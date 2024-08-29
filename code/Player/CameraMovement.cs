@@ -1,4 +1,4 @@
-using Sandbox;
+namespace Sandbox.Player;
 
 public sealed class CameraMovement : Component
 {
@@ -23,6 +23,27 @@ public sealed class CameraMovement : Component
 		if ( Input.Pressed( "View" ) )
 		{
 			Distance = Distance == 0f ? 150f : 0f;
+
+			if ( Distance == 0f )
+			{
+				var model = Player.Components.GetInChildren<SkinnedModelRenderer>();
+
+				if (model != null )
+				{
+					var clothingContainer = new ClothingContainer();
+					clothingContainer.Apply( model );
+				}
+			}
+			else
+			{
+				var model = Player.Components.GetInChildren<SkinnedModelRenderer>();
+
+				if (model != null )
+				{
+					var clothingContainer = ClothingContainer.CreateFromLocalUser();
+					clothingContainer.Apply( model );
+				}
+			}
 		}
 
 		// Rotate the head based on mouse movement

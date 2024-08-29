@@ -1,4 +1,6 @@
-using Sandbox;
+using Sandbox.Player;
+
+namespace Sandbox.Rocks;
 
 public sealed class RockColliderScript : Component, Component.ITriggerListener
 {

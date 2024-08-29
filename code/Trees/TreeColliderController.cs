@@ -1,4 +1,6 @@
-using Sandbox;
+using Sandbox.Player;
+
+namespace Sandbox.Trees;
 
 public sealed class BasicColliderController : Component, Component.ITriggerListener
 {

@@ -1,6 +1,7 @@
 using System;
-using Sandbox;
 using Sandbox.Citizen;
+
+namespace Sandbox.Player;
 
 public sealed class PlayerController : Component
 {
@@ -45,11 +46,27 @@ public sealed class PlayerController : Component
 	public long CuttingAmount = 1;
 	public long MiningAmount = 1;
 	public float Timer;
+	private float _soundTimer = 0f;
 	TimeSince _lastPunch;
-	private SoundEvent ResourceGained = new( "sounds/kenney/ui/drop_002.vsnd_c" )
+	private SoundEvent ResourceGained = new( "sounds/kenney/ui/drop_002.vsnd_c" ) { UI = true };
+	private List<SoundEvent> _rockHittingSounds = new()
 	{
-		UI = true
+		new SoundEvent("sounds/impacts/melee/bluntweapon/concrete-1.vsnd") { UI = true },
+		new SoundEvent("sounds/impacts/melee/bluntweapon/concrete-2.vsnd") { UI = true },
+		new SoundEvent("sounds/impacts/melee/bluntweapon/concrete-3.vsnd") { UI = true },
+		new SoundEvent("sounds/impacts/melee/bluntweapon/concrete-4.vsnd") { UI = true }
 	};
+	private int _currentSoundIndex = 0;
+	
+	private List<SoundEvent> _woodHittingSounds = new()
+	{
+		new SoundEvent("sounds/impacts/melee/bluntweapon/wood-1.vsnd") { UI = true },
+		new SoundEvent("sounds/impacts/melee/bluntweapon/wood-2.vsnd") { UI = true },
+		new SoundEvent("sounds/impacts/melee/bluntweapon/wood-3.vsnd") { UI = true },
+		new SoundEvent("sounds/impacts/melee/bluntweapon/wood-4.vsnd") { UI = true }
+	};
+	
+	private SoundEvent WoodHittingSound = new(  "sounds/impacts/melee/impact-melee-wood.sound") { UI = true };
 	
 	protected override void OnStart()
 	{
@@ -211,6 +228,19 @@ public sealed class PlayerController : Component
 		if ( !IsCutting ) return;
 		
 		Timer += Time.Delta;
+		
+		_soundTimer += Time.Delta;
+
+		// Play the next RockHittingSound every 1 second
+		if (_soundTimer >= 1f)
+		{
+			Punch();
+			Sound.Play(_woodHittingSounds[_currentSoundIndex]);
+			_soundTimer = 0f;
+
+			// Move to the next sound, loop back to the start if at the end
+			_currentSoundIndex = (_currentSoundIndex + 1) % _woodHittingSounds.Count;
+		}
 
 		// Check if the timer has reached 5 seconds
 		if (Timer >= CuttingSpeed)
@@ -228,7 +258,20 @@ public sealed class PlayerController : Component
 		if ( !IsRocking ) return;
 		
 		Timer += Time.Delta;
+		
+		_soundTimer += Time.Delta;
 
+		// Play the next RockHittingSound every 1 second
+		if (_soundTimer >= 1f)
+		{
+			Punch();
+			Sound.Play(_rockHittingSounds[_currentSoundIndex]);
+			_soundTimer = 0f;
+
+			// Move to the next sound, loop back to the start if at the end
+			_currentSoundIndex = (_currentSoundIndex + 1) % _rockHittingSounds.Count;
+		}
+		
 		// Check if the timer has reached 5 seconds
 		if (Timer >= MiningSpeed)
 		{
