@@ -2,96 +2,95 @@ namespace Sandbox.Player;
 
 public sealed class CameraMovement : Component
 {
-	[Property] public PlayerController Player { get; set; }
-	[Property] public GameObject Body { get; set; }
-	[Property] public GameObject Head { get; set; }
-	[Property] public float Distance { get; set; }
-	
-	public bool IsFirstPerson => Distance == 0f; // Helpful but not required. You could always just check if Distance == 0f
-	private CameraComponent _camera;
-	private ModelRenderer _bodyRenderer;
-	public Vector3 CurrentOffset = Vector3.Zero;
+    [Property] public PlayerController Player { get; set; }
+    [Property] public GameObject Body { get; set; }
+    [Property] public GameObject Head { get; set; }
+    [Property] public float Distance { get; set; } = 150f; // Start in third person
 
-	protected override void OnStart()
-	{
-		_camera = Player.Components.GetInChildren<CameraComponent>();
-		_bodyRenderer = Body.Components.Get<ModelRenderer>();
-	}
+    public bool IsFirstPerson => Distance == 0f;
+    private CameraComponent _camera;
+    private ModelRenderer _bodyRenderer;
+    public Vector3 CurrentOffset = Vector3.Zero;
 
-	protected override void OnUpdate()
-	{
-		if ( Input.Pressed( "View" ) )
-		{
-			Distance = Distance == 0f ? 150f : 0f;
+    protected override void OnStart()
+    {
+        InitializeComponents();
+        ApplyClothing(); // Ensure clothing is applied correctly for third person
+    }
 
-			if ( Distance == 0f )
-			{
-				var model = Player.Components.GetInChildren<SkinnedModelRenderer>();
+    protected override void OnUpdate()
+    {
+        HandleViewToggle();
+        RotateHead();
+        UpdateCurrentOffset();
+        UpdateCameraPosition();
+    }
 
-				if (model != null )
-				{
-					var clothingContainer = new ClothingContainer();
-					clothingContainer.Apply( model );
-				}
-			}
-			else
-			{
-				var model = Player.Components.GetInChildren<SkinnedModelRenderer>();
+    private void InitializeComponents()
+    {
+        _camera = Player.Components.GetInChildren<CameraComponent>();
+        _bodyRenderer = Body.Components.Get<ModelRenderer>();
+    }
 
-				if (model != null )
-				{
-					var clothingContainer = ClothingContainer.CreateFromLocalUser();
-					clothingContainer.Apply( model );
-				}
-			}
-		}
+    private void HandleViewToggle()
+    {
+        if (Input.Pressed("View"))
+        {
+            Distance = Distance == 0f ? 150f : 0f;
+            ApplyClothing();
+        }
+    }
 
-		// Rotate the head based on mouse movement
-		var eyeAngles = Head.Transform.Rotation.Angles();
-		eyeAngles.pitch += Input.MouseDelta.y * 0.1f;
-		eyeAngles.yaw -= Input.MouseDelta.x * 0.1f;
-		eyeAngles.roll = 0f;
-		eyeAngles.pitch = eyeAngles.pitch.Clamp( -89.9f, 89.9f );
+    private void ApplyClothing()
+    {
+        var model = Player.Components.GetInChildren<SkinnedModelRenderer>();
+        if (model != null)
+        {
+            var clothingContainer = Distance == 0f ? new ClothingContainer() : ClothingContainer.CreateFromLocalUser();
+            clothingContainer.Apply(model);
+        }
+    }
 
-		Head.Transform.Rotation = Rotation.From( eyeAngles );
-		
-		// Set the current camera offset
-		var targetOffset = Vector3.Zero;
-		if ( Player.IsCrouching ) targetOffset += Vector3.Down * 32f;
-		CurrentOffset = Vector3.Lerp(CurrentOffset, targetOffset, Time.Delta * 10f);
-		
-		// Set the position of the camera
-		if ( _camera is not null )
-		{
-			var camPos = Head.Transform.Position + CurrentOffset;
-			if ( !IsFirstPerson )
-			{
-				// Perform a trace backwards to see where we can safely place the camera
-				var camForward = eyeAngles.ToRotation().Forward;
-				var camTrace = Scene.Trace.Ray( camPos, camPos - (camForward * Distance) ).WithoutTags("player", "trigger").Run();
+    private void RotateHead()
+    {
+        var eyeAngles = Head.Transform.Rotation.Angles();
+        eyeAngles.pitch += Input.MouseDelta.y * 0.1f;
+        eyeAngles.yaw -= Input.MouseDelta.x * 0.1f;
+        eyeAngles.roll = 0f;
+        eyeAngles.pitch = eyeAngles.pitch.Clamp(-89.9f, 89.9f);
+        Head.Transform.Rotation = Rotation.From(eyeAngles);
+    }
 
-				if ( camTrace.Hit )
-				{
-					camPos = camTrace.HitPosition + camTrace.Normal;
-				}
-				else
-				{
-					camPos = camTrace.EndPosition;
-				}
-				
-				// Show the body if not in first person
-				_bodyRenderer.RenderType = ModelRenderer.ShadowRenderType.On;
-			}
-			else
-			{
-				// Hide body if in first person
-				_bodyRenderer.RenderType = ModelRenderer.ShadowRenderType.ShadowsOnly;
-			}
-			
-			// Set the position of the camera to our calculated position
-			_camera.Transform.Position = camPos;
-			_camera.Transform.Rotation = eyeAngles.ToRotation();
+    private void UpdateCurrentOffset()
+    {
+        var targetOffset = Player.IsCrouching ? Vector3.Down * 32f : Vector3.Zero;
+        CurrentOffset = Vector3.Lerp(CurrentOffset, targetOffset, Time.Delta * 10f);
+    }
 
-		}
-	}
+    private void UpdateCameraPosition()
+    {
+        if (_camera is null) return;
+
+        var camPos = Head.Transform.Position + CurrentOffset;
+        if (!IsFirstPerson)
+        {
+            camPos = GetThirdPersonCameraPosition(camPos);
+            _bodyRenderer.RenderType = ModelRenderer.ShadowRenderType.On;
+        }
+        else
+        {
+            _bodyRenderer.RenderType = ModelRenderer.ShadowRenderType.ShadowsOnly;
+        }
+
+        _camera.Transform.Position = camPos;
+        _camera.Transform.Rotation = Head.Transform.Rotation;
+    }
+
+    private Vector3 GetThirdPersonCameraPosition(Vector3 camPos)
+    {
+        var camForward = Head.Transform.Rotation.Forward;
+        var camTrace = Scene.Trace.Ray(camPos, camPos - (camForward * Distance)).WithoutTags("player", "trigger").Run();
+
+        return camTrace.Hit ? camTrace.HitPosition + camTrace.Normal : camTrace.EndPosition;
+    }
 }
