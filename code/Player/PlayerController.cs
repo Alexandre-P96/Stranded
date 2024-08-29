@@ -21,6 +21,8 @@ public sealed class PlayerController : Component
     [Property, Group("Movement")] public float RunSpeed { get; set; } = 290f;
     [Property, Group("Movement")] public float CrouchSpeed { get; set; } = 90f;
     [Property, Group("Movement")] public float JumpForce { get; set; } = 350f;
+    private float _footStepTimer = 0f;
+    private float _footStepInterval = 0.5f; // Adjust this value to set the interval for footstep sounds
 
     public float PunchStrength = 1f;
     public float PunchCooldown = 2f;
@@ -46,26 +48,8 @@ public sealed class PlayerController : Component
     private float _soundTimer = 0f;
     TimeSince _lastPunch;
     private SoundEvent ResourceGained = new("sounds/kenney/ui/drop_002.vsnd_c") { UI = true };
-    private List<SoundEvent> _rockHittingSounds = new()
-    {
-        new SoundEvent("sounds/impacts/melee/bluntweapon/concrete-1.vsnd") { UI = true },
-        new SoundEvent("sounds/impacts/melee/bluntweapon/concrete-2.vsnd") { UI = true },
-        new SoundEvent("sounds/impacts/melee/bluntweapon/concrete-3.vsnd") { UI = true },
-        new SoundEvent("sounds/impacts/melee/bluntweapon/concrete-4.vsnd") { UI = true }
-    };
-    private int _currentSoundIndex = 0;
 
-    private List<SoundEvent> _woodHittingSounds = new()
-    {
-        new SoundEvent("sounds/impacts/melee/bluntweapon/wood-1.vsnd") { UI = true },
-        new SoundEvent("sounds/impacts/melee/bluntweapon/wood-2.vsnd") { UI = true },
-        new SoundEvent("sounds/impacts/melee/bluntweapon/wood-3.vsnd") { UI = true },
-        new SoundEvent("sounds/impacts/melee/bluntweapon/wood-4.vsnd") { UI = true }
-    };
-
-    private SoundEvent WoodHittingSound = new("sounds/impacts/melee/impact-melee-wood.sound") { UI = true };
-
-    protected override void OnStart()
+        protected override void OnStart()
     {
         InitializeComponents();
         ApplyClothing();
@@ -77,8 +61,9 @@ public sealed class PlayerController : Component
         HandleInput();
         RotateBody();
         UpdateAnimations();
-        StartRocking();
-        StartCutting();
+        PlayFootStepSound();
+        StartAction(IsRocking, MiningSpeed, MiningAmount, GenericColliderController.ActionType.Rocking);
+        StartAction(IsCutting, CuttingSpeed, CuttingAmount, GenericColliderController.ActionType.Cutting);
     }
 
     protected override void OnFixedUpdate()
@@ -230,52 +215,51 @@ public sealed class PlayerController : Component
         _citizenAnimationHelper.DuckLevel = IsCrouching ? 1f : 0f;
     }
 
-    private void StartCutting()
+    private void StartAction(bool isActive, float actionSpeed, long actionAmount, GenericColliderController.ActionType actionType)
     {
-        if (!IsCutting) return;
+        if (!isActive) return;
 
         Timer += Time.Delta;
         _soundTimer += Time.Delta;
 
         if (_soundTimer >= 1f)
         {
-            PlaySound(_woodHittingSounds);
+            PlaySound(actionType);
         }
 
-        if (Timer >= CuttingSpeed)
+        if (Timer >= actionSpeed)
         {
             Timer = 0f;
-            Logs += CuttingAmount;
+            UpdateResource(actionAmount, actionType);
             Sound.Play(ResourceGained);
         }
     }
 
-    private void StartRocking()
+    private void UpdateResource(long amount, GenericColliderController.ActionType actionType)
     {
-        if (!IsRocking) return;
-
-        Timer += Time.Delta;
-        _soundTimer += Time.Delta;
-
-        if (_soundTimer >= 1f)
+        if (actionType == GenericColliderController.ActionType.Cutting)
         {
-            PlaySound(_rockHittingSounds);
+            Logs += amount;
         }
-
-        if (Timer >= MiningSpeed)
+        else if (actionType == GenericColliderController.ActionType.Rocking)
         {
-            Timer = 0f;
-            Rocks += MiningAmount;
-            Sound.Play(ResourceGained);
+            Rocks += amount;
         }
     }
 
-    private void PlaySound(List<SoundEvent> soundEvents)
+    private void PlaySound(GenericColliderController.ActionType action)
     {
         Punch();
-        Sound.Play(soundEvents[_currentSoundIndex]);
+        switch (action)
+        {
+	        case GenericColliderController.ActionType.Cutting:
+		        Sound.Play("impact-melee-wood");
+		        break;
+	        case GenericColliderController.ActionType.Rocking:
+		        Sound.Play("impact-melee-concrete");
+		        break;
+        }
         _soundTimer = 0f;
-        _currentSoundIndex = (_currentSoundIndex + 1) % soundEvents.Count;
     }
 
     private void Punch()
@@ -295,5 +279,21 @@ public sealed class PlayerController : Component
         {
             _citizenAnimationHelper.HoldType = CitizenAnimationHelper.HoldTypes.None;
         }
+    }
+    private void PlayFootStepSound()
+    {
+	    if (_characterController.IsOnGround && _characterController.Velocity.Length > 0)
+	    {
+		    _footStepTimer += Time.Delta;
+		    if (_footStepTimer >= _footStepInterval)
+		    {
+			    Sound.Play("footstep-grass");
+			    _footStepTimer = 0f;
+		    }
+	    }
+	    else
+	    {
+		    _footStepTimer = 0f;
+	    }
     }
 }

@@ -3,18 +3,18 @@
   "GameObjects": [
     {
       "__guid": "182416b4-f808-4011-9ed9-5bc7a7350230",
+      "Flags": 0,
       "Name": "Environment",
       "Position": "-52.77043,-124.6599,70.81791",
       "Enabled": true,
-      "NetworkMode": 2,
       "Children": [
         {
           "__guid": "8d7ac77b-f9e4-4c0c-a93f-e9e033e728d0",
+          "Flags": 0,
           "Name": "Floor",
           "Position": "0,124.6599,-70.81791",
           "Scale": "25,25,0.005809421",
           "Enabled": true,
-          "NetworkMode": 2,
           "Components": [
             {
               "__type": "Sandbox.ModelRenderer",
@@ -38,12 +38,12 @@
         },
         {
           "__guid": "78df1c94-61e7-47f3-93fd-58f68163f1ce",
+          "Flags": 0,
           "Name": "Directional Light",
           "Position": "52.77043,124.6599,129.1821",
           "Rotation": "-0.2459842,0.5938582,0.2931525,0.7077327",
           "Tags": "light_directional,light",
           "Enabled": true,
-          "NetworkMode": 2,
           "Components": [
             {
               "__type": "Sandbox.DirectionalLight",
@@ -58,16 +58,16 @@
         },
         {
           "__guid": "00344a8c-fa5e-45ae-b12a-10bb781a1dc3",
+          "Flags": 0,
           "Name": "2D Skybox",
           "Position": "0,0,0",
           "Tags": "skybox",
           "Enabled": true,
-          "NetworkMode": 2,
           "Components": [
             {
               "__type": "Sandbox.SkyBox2D",
               "__guid": "4718c436-f05b-4609-a3f4-3dcd73958ac7",
-              "SkyMaterial": "materials/skybox/light_test_sky_sunny03.vmat",
+              "SkyMaterial": "materials/skybox/skybox_day_01.vmat",
               "Tint": "1,1,1,1"
             },
             {
@@ -93,12 +93,12 @@
         },
         {
           "__guid": "bfc59c12-1ed2-4f91-8956-a95a315eac3c",
+          "Flags": 0,
           "Name": "Sun",
           "Position": "0,0,0",
           "Rotation": "-0.0729315,0.4822396,0.1305433,0.8631827",
           "Tags": "light_directional,light",
           "Enabled": true,
-          "NetworkMode": 2,
           "Components": [
             {
               "__type": "Sandbox.DirectionalLight",
@@ -113,11 +113,11 @@
         },
         {
           "__guid": "be2685c3-8191-4937-8cfb-fb312e549362",
+          "Flags": 0,
           "Name": "Basic Tree",
           "Position": "776.7717,118.6568,19.39194",
           "Scale": "0.4635988,0.4635988,0.4635988",
           "Enabled": true,
-          "NetworkMode": 2,
           "Components": [
             {
               "__type": "Sandbox.BoxCollider",
@@ -126,10 +126,6 @@
               "IsTrigger": true,
               "Scale": "500,500,328.8986",
               "Static": false
-            },
-            {
-              "__type": "BasicColliderController",
-              "__guid": "a44d7fe1-83a5-4edd-81e5-717e7ddc037d"
             },
             {
               "__type": "Sandbox.ModelRenderer",
@@ -145,21 +141,27 @@
               "IsTrigger": false,
               "Model": "models/8riv_scrubtree_b01.vmdl",
               "Static": false
+            },
+            {
+              "__type": "Sandbox.Player.GenericColliderController",
+              "__guid": "a04eb6ff-1835-4138-907b-b4ae0fa43f37",
+              "CurrentActionType": "Cutting"
             }
           ],
           "Children": [
             {
               "__guid": "cc3c4582-2124-467a-9d10-7e6abcba9645",
+              "Flags": 0,
               "Name": "Tree Message",
               "Position": "-70.26473,11.49787,-92.92049",
               "Scale": "2.157037,2.157037,2.157037",
               "Enabled": true,
-              "NetworkMode": 2,
               "Components": [
                 {
                   "__type": "Sandbox.WorldPanel",
                   "__guid": "f20ad051-0277-49ed-b35f-b384c653d52a",
                   "HorizontalAlign": "Center",
+                  "InteractionRange": 1000,
                   "LookAtCamera": true,
                   "PanelSize": "1400,512",
                   "RenderScale": 1,
@@ -176,10 +178,10 @@
         },
         {
           "__guid": "8cf6d8c1-df6f-4aa1-a8dc-6809c7a3f032",
+          "Flags": 0,
           "Name": "Basic Rock",
           "Position": "53.22141,691.2079,-217.8196",
           "Enabled": true,
-          "NetworkMode": 2,
           "Components": [
             {
               "__type": "Sandbox.ModelRenderer",
@@ -205,23 +207,25 @@
               "Static": false
             },
             {
-              "__type": "RockColliderScript",
-              "__guid": "d1322fce-6791-49b4-9f47-3d7343c97ccc"
+              "__type": "Sandbox.Player.GenericColliderController",
+              "__guid": "d610d5bb-5585-44f4-9731-d1a7410ef7c9",
+              "CurrentActionType": "Rocking"
             }
           ],
           "Children": [
             {
               "__guid": "f7dd2994-8bae-4df1-9a93-cd884178f7cd",
+              "Flags": 0,
               "Name": "Rock Message",
               "Position": "-4.77417,-157.4531,211.2562",
               "Rotation": "0,0,0.7071067,0.7071068",
               "Enabled": true,
-              "NetworkMode": 2,
               "Components": [
                 {
                   "__type": "Sandbox.WorldPanel",
                   "__guid": "afd0102c-da61-4736-bffe-3c6f0fd05603",
                   "HorizontalAlign": "Center",
+                  "InteractionRange": 1000,
                   "LookAtCamera": true,
                   "PanelSize": "1400,512",
                   "RenderScale": 1,
@@ -240,10 +244,10 @@
     },
     {
       "__guid": "8f903d47-b54e-4c0d-8b09-3cc11cde34fa",
+      "Flags": 0,
       "Name": "Player",
       "Tags": "player",
       "Enabled": true,
-      "NetworkMode": 2,
       "Components": [
         {
           "__type": "Sandbox.CharacterController",
@@ -254,7 +258,8 @@
           "Height": 64,
           "IgnoreLayers": "player",
           "Radius": 10.95,
-          "StepHeight": 18
+          "StepHeight": 18,
+          "UseCollisionRules": false
         },
         {
           "__type": "Sandbox.CapsuleCollider",
@@ -266,7 +271,7 @@
           "Static": false
         },
         {
-          "__type": "PlayerController",
+          "__type": "Sandbox.Player.PlayerController",
           "__guid": "1cf326fa-a093-4dfa-81c3-968492bb5388",
           "AirControl": 0.1,
           "Body": {
@@ -309,9 +314,9 @@
       "Children": [
         {
           "__guid": "6b453f1a-eae7-4578-b5fc-edf762ffc5a3",
+          "Flags": 0,
           "Name": "Body",
           "Enabled": true,
-          "NetworkMode": 2,
           "Components": [
             {
               "__type": "Sandbox.SkinnedModelRenderer",
@@ -320,23 +325,24 @@
               "CreateBoneObjects": false,
               "Model": "models/citizen/citizen.vmdl",
               "RenderType": "On",
-              "Tint": "1,1,1,1"
+              "Tint": "1,1,1,1",
+              "UseAnimGraph": true
             }
           ]
         },
         {
           "__guid": "3cb3d960-d0c5-4770-9b7e-1e50efb7bd73",
+          "Flags": 0,
           "Name": "Head",
           "Position": "0,0,61.78005",
-          "Enabled": true,
-          "NetworkMode": 2
+          "Enabled": true
         },
         {
           "__guid": "7af79e3b-d669-40ac-aeaf-3d05f3c4258e",
+          "Flags": 0,
           "Name": "Camera",
           "Position": "-126.2504,0,64.77955",
           "Enabled": true,
-          "NetworkMode": 2,
           "Components": [
             {
               "__type": "Sandbox.CameraComponent",
@@ -356,7 +362,7 @@
               "ZNear": 0.1
             },
             {
-              "__type": "CameraMovement",
+              "__type": "Sandbox.Player.CameraMovement",
               "__guid": "ae0f93df-a162-469b-8b5d-50a574f0edca",
               "Body": {
                 "_type": "gameobject",
@@ -385,10 +391,10 @@
     },
     {
       "__guid": "c3d53a24-edb3-4cca-b13e-e901bf98ea41",
+      "Flags": 0,
       "Name": "UI",
       "Position": "-189.9886,-164.3313,114.042",
       "Enabled": true,
-      "NetworkMode": 2,
       "Components": [
         {
           "__type": "Sandbox.ScreenPanel",
@@ -396,16 +402,17 @@
           "AutoScreenScale": true,
           "Opacity": 1,
           "Scale": 1,
+          "ScaleStrategy": "ConsistentHeight",
           "ZIndex": 100
         }
       ],
       "Children": [
         {
           "__guid": "810b0190-b0eb-4491-a276-917da705aa01",
+          "Flags": 0,
           "Name": "MainHud",
           "Position": "204.9283,-373.4435,109.6498",
           "Enabled": true,
-          "NetworkMode": 2,
           "Components": [
             {
               "__type": "Sandbox.ScreenPanel",
@@ -413,6 +420,7 @@
               "AutoScreenScale": true,
               "Opacity": 1,
               "Scale": 1,
+              "ScaleStrategy": "ConsistentHeight",
               "ZIndex": 100
             },
             {
@@ -429,10 +437,10 @@
         },
         {
           "__guid": "0e0d71d5-1671-42b5-96b4-09f2c37f9585",
+          "Flags": 0,
           "Name": "Escape",
           "Position": "0,0,0",
           "Enabled": true,
-          "NetworkMode": 2,
           "Components": [
             {
               "__type": "Sandbox.ScreenPanel",
@@ -440,6 +448,7 @@
               "AutoScreenScale": true,
               "Opacity": 1,
               "Scale": 1,
+              "ScaleStrategy": "ConsistentHeight",
               "ZIndex": 50
             },
             {
@@ -452,10 +461,10 @@
     },
     {
       "__guid": "e5d606ea-994e-41f8-86b2-a95e5a85a2a1",
+      "Flags": 0,
       "Name": "SpawnPoint",
       "Position": "-130.8714,-67.90466,1.507481",
       "Enabled": true,
-      "NetworkMode": 2,
       "Components": [
         {
           "__type": "Sandbox.SpawnPoint",
@@ -467,9 +476,9 @@
   ],
   "SceneProperties": {
     "FixedUpdateFrequency": 50,
-    "Lerping": true,
     "MaxFixedUpdates": 5,
     "NetworkFrequency": 60,
+    "NetworkInterpolation": true,
     "ThreadedAnimation": true,
     "TimeScale": 1,
     "UseFixedUpdate": true,
@@ -488,11 +497,10 @@
   },
   "Title": "main",
   "Description": "",
-  "LastSaved": "2024-04-13T20:45:05.3789014-04:00",
   "ResourceVersion": 1,
-  "__version": 1,
   "__references": [
     "orus.8riv_scrubtree_b01",
     "rust.rock_med_c"
-  ]
+  ],
+  "__version": 1
 }
