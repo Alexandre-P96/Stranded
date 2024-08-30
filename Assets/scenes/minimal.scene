@@ -1,5 +1,5 @@
 {
-  "__guid": "3258d63b-c02b-41d8-a29c-9dae8662aea4",
+  "__guid": "90006ca2-1e7b-4edf-b19b-fc58ca66a122",
   "GameObjects": [
     {
       "__guid": "182416b4-f808-4011-9ed9-5bc7a7350230",
@@ -239,25 +239,6 @@
               ]
             }
           ]
-        },
-        {
-          "__guid": "22614387-f68b-4ff2-bb57-39fe5b7abfe8",
-          "Flags": 0,
-          "Name": "ShopPanel",
-          "Position": "-8.032436,-101.9736,-11.11016",
-          "Enabled": true,
-          "Components": [
-            {
-              "__type": "Sandbox.WorldPanel",
-              "__guid": "06c8c9e4-a90b-4771-8346-0c9dd8662448",
-              "HorizontalAlign": "Center",
-              "InteractionRange": 1000,
-              "LookAtCamera": false,
-              "PanelSize": "512,512",
-              "RenderScale": 1,
-              "VerticalAlign": "Center"
-            }
-          ]
         }
       ]
     },
@@ -403,6 +384,12 @@
               "__type": "Sandbox.Sharpen",
               "__guid": "81b8c182-dc13-465d-8f7f-49ca3031952d",
               "Scale": 0.1
+            },
+            {
+              "__type": "Sandbox.WorldInput",
+              "__guid": "da802874-143a-447e-a6be-5063e0ebf1bb",
+              "LeftMouseAction": "Attack1",
+              "RightMouseAction": "Attack2"
             }
           ]
         }

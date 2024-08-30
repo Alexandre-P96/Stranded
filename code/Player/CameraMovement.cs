@@ -1,3 +1,5 @@
+using System;
+
 namespace Sandbox.Player;
 
 public sealed class CameraMovement : Component
