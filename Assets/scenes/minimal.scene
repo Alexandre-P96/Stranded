@@ -239,6 +239,25 @@
               ]
             }
           ]
+        },
+        {
+          "__guid": "22614387-f68b-4ff2-bb57-39fe5b7abfe8",
+          "Flags": 0,
+          "Name": "ShopPanel",
+          "Position": "-8.032436,-101.9736,-11.11016",
+          "Enabled": true,
+          "Components": [
+            {
+              "__type": "Sandbox.WorldPanel",
+              "__guid": "06c8c9e4-a90b-4771-8346-0c9dd8662448",
+              "HorizontalAlign": "Center",
+              "InteractionRange": 1000,
+              "LookAtCamera": false,
+              "PanelSize": "512,512",
+              "RenderScale": 1,
+              "VerticalAlign": "Center"
+            }
+          ]
         }
       ]
     },
