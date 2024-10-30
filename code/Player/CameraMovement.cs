@@ -4,7 +4,7 @@ namespace Sandbox.Player;
 
 public sealed class CameraMovement : Component
 {
-    [Property] public PlayerController Player { get; set; }
+    [Property] public PlayerActions Player { get; set; }
     [Property] public GameObject Body { get; set; }
     [Property] public GameObject Head { get; set; }
     [Property] public float Distance { get; set; } = 150f; // Start in third person

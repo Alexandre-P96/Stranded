@@ -1,0 +1,37 @@
+@using Sandbox;
+@using Sandbox.Player
+@using Sandbox.UI;
+@inherits PanelComponent
+@namespace Sandbox
+
+<root class="@(IsOpen ? "" : "hide")">
+	<div class="title">Yo</div>
+</root>
+
+@code
+{
+
+	[Property] PlayerActions Player { get; set; }
+	
+	public bool IsOpen { get; set; } = false;
+	
+	protected override void OnUpdate()
+	{
+		base.OnUpdate();
+		
+		var sceneTraceResult = Scene.Trace.FromTo(Player.Head.WorldPosition, Player.Head.WorldPosition + Player.Head.WorldRotation.Forward * 30)
+			.Size(30f)
+			.WithAnyTags("workbench")
+			.Run();
+
+		if ( sceneTraceResult.Hit && sceneTraceResult.Tags.Contains("workbench") && Input.Pressed( "use" ) )
+		{
+			IsOpen = !IsOpen;
+		}
+	}
+
+	/// <summary>
+	/// the hash determines if the system should be rebuilt. If it changes, it will be rebuilt
+	/// </summary>
+	protected override int BuildHash() => System.HashCode.Combine( IsOpen );
+}

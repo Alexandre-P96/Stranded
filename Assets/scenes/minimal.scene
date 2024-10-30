@@ -1,5 +1,5 @@
 {
-  "__guid": "90006ca2-1e7b-4edf-b19b-fc58ca66a122",
+  "__guid": "04166321-1811-4025-8e59-142838b0915f",
   "GameObjects": [
     {
       "__guid": "cdcc14c6-392c-4a05-95a8-dbfc1e7ef624",
@@ -171,9 +171,9 @@
               "CurrentActionType": "Cutting",
               "Player": {
                 "_type": "component",
-                "component_id": "1cf326fa-a093-4dfa-81c3-968492bb5388",
+                "component_id": "fa026736-bc39-4a30-8160-eec3dc3acf65",
                 "go": "8f903d47-b54e-4c0d-8b09-3cc11cde34fa",
-                "component_type": "PlayerController"
+                "component_type": "PlayerActions"
               }
             }
           ],
@@ -203,9 +203,44 @@
                   "VerticalAlign": "Center"
                 },
                 {
-                  "__type": "NameTagPanel",
-                  "__guid": "124cfcc1-b445-41fe-9efa-e33d2e747e7a",
-                  "Name": "Press E to start or stop \ncutting the tree"
+                  "__type": "Sandbox.TextRenderer",
+                  "__guid": "3c968bf4-825f-43e3-9303-7e2aae6b0155",
+                  "__version": 1,
+                  "BlendMode": "Normal",
+                  "RenderOptions": {
+                    "GameLayer": true,
+                    "OverlayLayer": false,
+                    "BloomLayer": false,
+                    "AfterUILayer": false
+                  },
+                  "Scale": 0.12,
+                  "TextAlignment": "Center",
+                  "TextScope": {
+                    "Text": "Press E to start or stop cutting the tree",
+                    "TextColor": "1,1,1,1",
+                    "FontName": "Poppins",
+                    "FontSize": 32,
+                    "FontWeight": 400,
+                    "LineHeight": 1,
+                    "Outline": {
+                      "Size": 4,
+                      "Color": "0,0,1,1"
+                    },
+                    "Shadow": {
+                      "Size": 4,
+                      "Color": "0,0,0,1",
+                      "Offset": "4,4"
+                    },
+                    "OutlineUnder": {
+                      "Size": 4,
+                      "Color": "0,1,0,1"
+                    },
+                    "ShadowUnder": {
+                      "Size": 4,
+                      "Color": "0,0,0,1",
+                      "Offset": "4,4"
+                    }
+                  }
                 }
               ]
             }
@@ -247,9 +282,9 @@
               "CurrentActionType": "Rocking",
               "Player": {
                 "_type": "component",
-                "component_id": "1cf326fa-a093-4dfa-81c3-968492bb5388",
+                "component_id": "fa026736-bc39-4a30-8160-eec3dc3acf65",
                 "go": "8f903d47-b54e-4c0d-8b09-3cc11cde34fa",
-                "component_type": "PlayerController"
+                "component_type": "PlayerActions"
               }
             }
           ],
@@ -279,9 +314,44 @@
                   "VerticalAlign": "Center"
                 },
                 {
-                  "__type": "NameTagPanel",
-                  "__guid": "d2462f92-d81c-450c-85f8-ad2e33bae4f2",
-                  "Name": "Press E to start or stop \nmining the rock"
+                  "__type": "Sandbox.TextRenderer",
+                  "__guid": "05f340d4-d6c0-4bcc-bb78-f0063d6c41b3",
+                  "__version": 1,
+                  "BlendMode": "Normal",
+                  "RenderOptions": {
+                    "GameLayer": true,
+                    "OverlayLayer": false,
+                    "BloomLayer": false,
+                    "AfterUILayer": false
+                  },
+                  "Scale": 0.15,
+                  "TextAlignment": "Center",
+                  "TextScope": {
+                    "Text": "Press E to start or stop mining the rock",
+                    "TextColor": "1,1,1,1",
+                    "FontName": "Poppins",
+                    "FontSize": 32,
+                    "FontWeight": 400,
+                    "LineHeight": 1,
+                    "Outline": {
+                      "Size": 4,
+                      "Color": "0,0,1,1"
+                    },
+                    "Shadow": {
+                      "Size": 4,
+                      "Color": "0,0,0,1",
+                      "Offset": "4,4"
+                    },
+                    "OutlineUnder": {
+                      "Size": 4,
+                      "Color": "0,1,0,1"
+                    },
+                    "ShadowUnder": {
+                      "Size": 4,
+                      "Color": "0,0,0,1",
+                      "Offset": "4,4"
+                    }
+                  }
                 }
               ]
             }
@@ -293,6 +363,7 @@
           "Name": "Workbench",
           "Position": "507.1428,560.0497,-70.67267",
           "Rotation": "0,0,0.3826834,0.9238796",
+          "Tags": "workbench",
           "Enabled": true,
           "Components": [
             {
@@ -322,7 +393,7 @@
             {
               "__guid": "627347fe-a817-4ba4-b645-8a4df0e5871d",
               "Flags": 0,
-              "Name": "Rock Message",
+              "Name": "Workbench Message",
               "Position": "-6.646066,-2.042017,52.50462",
               "Enabled": true,
               "Components": [
@@ -343,9 +414,44 @@
                   "VerticalAlign": "Center"
                 },
                 {
-                  "__type": "NameTagPanel",
-                  "__guid": "3823e2e7-9c2e-4fd5-9fdd-a1a8cf72e711",
-                  "Name": "Press E to interact with the upgrade workbench"
+                  "__type": "Sandbox.TextRenderer",
+                  "__guid": "68c2bc9d-8227-45cf-a95e-3f59ad07127d",
+                  "__version": 1,
+                  "BlendMode": "Normal",
+                  "RenderOptions": {
+                    "GameLayer": true,
+                    "OverlayLayer": false,
+                    "BloomLayer": false,
+                    "AfterUILayer": false
+                  },
+                  "Scale": 0.1,
+                  "TextAlignment": "Center",
+                  "TextScope": {
+                    "Text": "Press E to interact with the upgrade workbench",
+                    "TextColor": "1,1,1,1",
+                    "FontName": "Poppins",
+                    "FontSize": 32,
+                    "FontWeight": 400,
+                    "LineHeight": 1,
+                    "Outline": {
+                      "Size": 4,
+                      "Color": "0,0,1,1"
+                    },
+                    "Shadow": {
+                      "Size": 4,
+                      "Color": "0,0,0,1",
+                      "Offset": "4,4"
+                    },
+                    "OutlineUnder": {
+                      "Size": 4,
+                      "Color": "0,1,0,1"
+                    },
+                    "ShadowUnder": {
+                      "Size": 4,
+                      "Color": "0,0,0,1",
+                      "Offset": "4,4"
+                    }
+                  }
                 }
               ]
             }
@@ -383,8 +489,22 @@
           "SurfaceVelocity": "0,0,0"
         },
         {
-          "__type": "Sandbox.Player.PlayerController",
-          "__guid": "1cf326fa-a093-4dfa-81c3-968492bb5388",
+          "__type": "Sandbox.Citizen.CitizenAnimationHelper",
+          "__guid": "f28f6927-cae9-452d-88e8-3f5c4b51af7f",
+          "BodyWeight": 1,
+          "EyesWeight": 1,
+          "HeadWeight": 1,
+          "LookAtEnabled": false,
+          "Target": {
+            "_type": "component",
+            "component_id": "56d9a802-2768-4795-aab3-366d8e664e0c",
+            "go": "6b453f1a-eae7-4578-b5fc-edf762ffc5a3",
+            "component_type": "SkinnedModelRenderer"
+          }
+        },
+        {
+          "__type": "Sandbox.Player.PlayerActions",
+          "__guid": "fa026736-bc39-4a30-8160-eec3dc3acf65",
           "AirControl": 0.1,
           "Body": {
             "_type": "gameobject",
@@ -398,29 +518,15 @@
           },
           "Health": 100,
           "Inventory": [
-            ""
+            "Fist"
           ],
           "JumpForce": 350,
-          "Logs": 100,
+          "Logs": 1,
           "MaxForce": 50,
           "MaxHealth": 100,
-          "Rocks": 100,
+          "Rocks": 0,
           "RunSpeed": 290,
           "Speed": 160
-        },
-        {
-          "__type": "Sandbox.Citizen.CitizenAnimationHelper",
-          "__guid": "f28f6927-cae9-452d-88e8-3f5c4b51af7f",
-          "BodyWeight": 1,
-          "EyesWeight": 1,
-          "HeadWeight": 1,
-          "LookAtEnabled": false,
-          "Target": {
-            "_type": "component",
-            "component_id": "56d9a802-2768-4795-aab3-366d8e664e0c",
-            "go": "6b453f1a-eae7-4578-b5fc-edf762ffc5a3",
-            "component_type": "SkinnedModelRenderer"
-          }
         }
       ],
       "Children": [
@@ -501,9 +607,9 @@
               },
               "Player": {
                 "_type": "component",
-                "component_id": "1cf326fa-a093-4dfa-81c3-968492bb5388",
+                "component_id": "fa026736-bc39-4a30-8160-eec3dc3acf65",
                 "go": "8f903d47-b54e-4c0d-8b09-3cc11cde34fa",
-                "component_type": "PlayerController"
+                "component_type": "PlayerActions"
               }
             },
             {
@@ -542,7 +648,7 @@
         {
           "__guid": "810b0190-b0eb-4491-a276-917da705aa01",
           "Flags": 0,
-          "Name": "MainHud",
+          "Name": "Main Hud",
           "Position": "204.9283,-373.4435,109.6498",
           "Enabled": true,
           "Components": [
@@ -560,9 +666,9 @@
               "__guid": "d5c91e96-fad4-4bbe-8dd7-d0cb12db509d",
               "Player": {
                 "_type": "component",
-                "component_id": "1cf326fa-a093-4dfa-81c3-968492bb5388",
+                "component_id": "fa026736-bc39-4a30-8160-eec3dc3acf65",
                 "go": "8f903d47-b54e-4c0d-8b09-3cc11cde34fa",
-                "component_type": "PlayerController"
+                "component_type": "PlayerActions"
               }
             }
           ]
@@ -585,6 +691,25 @@
             {
               "__type": "PauseMenu",
               "__guid": "c27e8984-7cee-4da6-9433-b8957ee02aec"
+            }
+          ]
+        },
+        {
+          "__guid": "687553b5-3d71-4586-a6a5-400e724dc43d",
+          "Flags": 0,
+          "Name": "Workbench Menu",
+          "Tags": "workbench",
+          "Enabled": true,
+          "Components": [
+            {
+              "__type": "Sandbox.WorkbenchMenu",
+              "__guid": "450b15af-312d-4d62-9d15-25d37dac6727",
+              "Player": {
+                "_type": "component",
+                "component_id": "fa026736-bc39-4a30-8160-eec3dc3acf65",
+                "go": "8f903d47-b54e-4c0d-8b09-3cc11cde34fa",
+                "component_type": "PlayerActions"
+              }
             }
           ]
         }

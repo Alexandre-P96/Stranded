@@ -3,7 +3,7 @@ using Sandbox.Citizen;
 
 namespace Sandbox.Player;
 
-public sealed class PlayerController : Component
+public sealed class PlayerActions : Component
 {
     [Property] public float Health { get; set; } = 100f;
     [Property] public float MaxHealth { get; set; } = 100f;

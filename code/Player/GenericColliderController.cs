@@ -8,9 +8,9 @@ public sealed class GenericColliderController : Component
     private SoundEvent StopSound = new("sounds/tools/sfm/denyundo.vsnd_c") { UI = true };
 
     private bool CanStartAction;
-    private SceneTraceResult SceneTraceResult;
+    public SceneTraceResult SceneTraceResult;
     private float DelayOnActionChecking;
-    [Property] public PlayerController Player { get; set; }
+    [Property] public PlayerActions Player { get; set; }
 
     public enum ActionType
     {
@@ -35,18 +35,16 @@ public sealed class GenericColliderController : Component
 	    }
     }
 
-    private void PerformSceneTrace()
+    public void PerformSceneTrace()
     {
 	    SceneTraceResult = Scene.Trace.FromTo(Player.Head.WorldPosition, Player.Head.WorldPosition + Player.Head.WorldRotation.Forward * 30)
 		    .Size(30f)
-		    .WithAnyTags("tree", "rock")
+		    .WithAnyTags("tree", "rock", "workbench")
 		    .Run();
     }
 
     private void HandleHit()
     {
-	    Log.Info("Hit tree");
-
 	    if (Input.Pressed("use"))
 	    {
 		    if (CanStartAction)
