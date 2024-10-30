@@ -49,7 +49,7 @@ public sealed class PlayerController : Component
     private float _soundTimer = 0f;
     private float _saveTimer = 0f;
     TimeSince _lastPunch;
-    private SoundEvent ResourceGained = new("sounds/kenney/ui/drop_002.vsnd_c") { UI = true };
+    private SoundEvent ResourceGained = new("sounds/kenney/ui/drop_002.vsnd_c") { UI = true, Volume = 2};
 
         protected override void OnStart()
     {
@@ -178,7 +178,7 @@ public sealed class PlayerController : Component
     private void BuildWishVelocity()
     {
         WishVelocity = 0;
-        var rot = Head.Transform.Rotation;
+        var rot = Head.WorldRotation;
 
         if (Input.Down("Forward")) WishVelocity += rot.Forward;
         if (Input.Down("Backward")) WishVelocity += rot.Backward;
@@ -227,12 +227,12 @@ public sealed class PlayerController : Component
     {
         if (Body is null) return;
 
-        var targetAngle = new Angles(0, Head.Transform.Rotation.Yaw(), 0).ToRotation();
-        var rotateDifference = Body.Transform.Rotation.Distance(targetAngle);
+        var targetAngle = new Angles(0, Head.WorldRotation.Yaw(), 0).ToRotation();
+        var rotateDifference = Body.WorldRotation.Distance(targetAngle);
 
         if (rotateDifference > 50f || _characterController.Velocity.Length > 10f)
         {
-            Body.Transform.Rotation = Rotation.Lerp(Body.Transform.Rotation, targetAngle, Time.Delta * 3f);
+            Body.WorldRotation = Rotation.Lerp(Body.WorldRotation, targetAngle, Time.Delta * 3f);
         }
     }
 
@@ -240,7 +240,7 @@ public sealed class PlayerController : Component
     {
         if (!_characterController.IsOnGround) return;
 
-        Sound.Play( new SoundEvent("sounds/footsteps/footstep-grass-jump-start-004.vsnd_c") { UI = true } );
+        Sound.Play( new SoundEvent("sounds/footsteps/footstep-grass-jump-start-004.vsnd_c") { UI = true, Volume = 2} );
         _characterController.Punch(Vector3.Up * JumpForce);
         _citizenAnimationHelper?.TriggerJump();
     }
@@ -251,9 +251,9 @@ public sealed class PlayerController : Component
 
         _citizenAnimationHelper.WithWishVelocity(WishVelocity);
         _citizenAnimationHelper.WithVelocity(WishVelocity);
-        _citizenAnimationHelper.AimAngle = Head.Transform.Rotation;
+        _citizenAnimationHelper.AimAngle = Head.WorldRotation;
         _citizenAnimationHelper.IsGrounded = _characterController.IsOnGround;
-        _citizenAnimationHelper.WithLook(Head.Transform.Rotation.Forward, 1f, 0.75f, 0.5f);
+        _citizenAnimationHelper.WithLook(Head.WorldRotation.Forward, 1f, 0.75f, 0.5f);
         _citizenAnimationHelper.MoveStyle = CitizenAnimationHelper.MoveStyles.Run;
         _citizenAnimationHelper.DuckLevel = IsCrouching ? 1f : 0f;
     }
@@ -311,7 +311,7 @@ public sealed class PlayerController : Component
         {
             _citizenAnimationHelper.HoldType = CitizenAnimationHelper.HoldTypes.Punch;
             _citizenAnimationHelper.Target.Set("b_attack", true);
-            Sound.Play(new SoundEvent("sounds/physics/phys-impact-meat-2.wav") { UI = true });
+            Sound.Play(new SoundEvent("sounds/physics/phys-impact-meat-2.vsnd_c") { UI = true, Volume = 2});
         }
 
         _lastPunch = 0f;
@@ -353,7 +353,7 @@ public sealed class PlayerController : Component
     {
 	    if (_wasInAir && _characterController.IsOnGround)
 	    {
-		    Sound.Play(new SoundEvent("sounds/footsteps/footstep-gravel-jump-land-004.vsnd_c") { UI = true });
+		    Sound.Play(new SoundEvent("sounds/footsteps/footstep-gravel-jump-land-004.vsnd_c") { UI = true, Volume = 2});
 	    }
 	    _wasInAir = !_characterController.IsOnGround;
     }
