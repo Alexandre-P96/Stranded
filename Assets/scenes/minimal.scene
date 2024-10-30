@@ -62,7 +62,7 @@
           "__guid": "78df1c94-61e7-47f3-93fd-58f68163f1ce",
           "Flags": 0,
           "Name": "Directional Light",
-          "Position": "52.77043,124.6599,129.1821",
+          "Position": "-192.2297,124.6599,129.1821",
           "Rotation": "-0.2459842,0.5938582,0.2931525,0.7077327",
           "Tags": "light_directional,light",
           "Enabled": true,
@@ -73,7 +73,7 @@
               "FogMode": "Enabled",
               "FogStrength": 1,
               "LightColor": "0.91373,0.98039,1,1",
-              "Shadows": true,
+              "Shadows": false,
               "SkyColor": "0.05882,0.07451,0.08235,1"
             }
           ]
@@ -82,6 +82,7 @@
           "__guid": "00344a8c-fa5e-45ae-b12a-10bb781a1dc3",
           "Flags": 0,
           "Name": "2D Skybox",
+          "Rotation": "-0,0,-0.4725508,-0.8813034",
           "Tags": "skybox",
           "Enabled": true,
           "Components": [
@@ -97,8 +98,8 @@
               "__guid": "e6e000c1-6eef-40d4-b164-18602c11433c",
               "Texture": "textures/cubemaps/default2.vtex",
               "Bounds": {
-                "Mins": "-512,-512,-512",
-                "Maxs": "512,512,512"
+                "Mins": "-1242.701,-1465.7,-512",
+                "Maxs": "1260.801,1799.899,512"
               },
               "DelayBetweenUpdates": 0.1,
               "Feathering": 0.02,
@@ -119,17 +120,17 @@
           "Flags": 0,
           "Name": "Sun",
           "Rotation": "-0.0729315,0.4822396,0.1305433,0.8631827",
-          "Tags": "light_directional,light",
+          "Tags": "light,light_directional",
           "Enabled": true,
           "Components": [
             {
               "__type": "Sandbox.DirectionalLight",
               "__guid": "ce33f111-8e59-48ee-a424-c58eb00153c9",
               "FogMode": "Enabled",
-              "FogStrength": 1,
-              "LightColor": "0.94419,0.97767,1,1",
+              "FogStrength": 0.26,
+              "LightColor": "0.42791,0.42791,0.42791,1",
               "Shadows": true,
-              "SkyColor": "0.2532,0.32006,0.35349,1"
+              "SkyColor": "0,0,0,0"
             }
           ]
         },
@@ -295,21 +296,26 @@
           "Enabled": true,
           "Components": [
             {
-              "__type": "Sandbox.Prop",
-              "__guid": "ee890816-4505-4238-9f72-9907ae78944e",
-              "BodyGroups": 18446744073709551615,
-              "Health": 0,
-              "IsStatic": false,
-              "Model": "models/props/workbench/workbench_a.vmdl",
-              "StartAsleep": false,
-              "Tint": "1,1,1,1"
-            },
-            {
               "__type": "Sandbox.ModelCollider",
               "__guid": "5532438d-82de-4ed8-b220-158f39bc8fa5",
               "IsTrigger": false,
-              "Static": false,
+              "Model": "models/props/workbench/workbench_a.vmdl",
+              "Static": true,
               "SurfaceVelocity": "0,0,0"
+            },
+            {
+              "__type": "Sandbox.ModelRenderer",
+              "__guid": "30a41aa2-ee93-4dc8-a409-b05eda9255fe",
+              "BodyGroups": 18446744073709551615,
+              "Model": "models/props/workbench/workbench_a.vmdl",
+              "RenderOptions": {
+                "GameLayer": true,
+                "OverlayLayer": false,
+                "BloomLayer": false,
+                "AfterUILayer": false
+              },
+              "RenderType": "On",
+              "Tint": "1,1,1,1"
             }
           ],
           "Children": [
