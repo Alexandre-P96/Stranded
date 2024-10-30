@@ -73,7 +73,7 @@ public sealed class CameraMovement : Component
     {
         if (_camera is null) return;
 
-        var camPos = Head.Transform.Position + CurrentOffset;
+        var camPos = Head.WorldPosition + CurrentOffset;
         if (!IsFirstPerson)
         {
             camPos = GetThirdPersonCameraPosition(camPos);
@@ -84,7 +84,7 @@ public sealed class CameraMovement : Component
             _bodyRenderer.RenderType = ModelRenderer.ShadowRenderType.ShadowsOnly;
         }
 
-        _camera.Transform.Position = camPos;
+        _camera.WorldPosition = camPos;
         _camera.WorldRotation = Head.WorldRotation;
     }
 

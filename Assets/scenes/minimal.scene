@@ -143,16 +143,6 @@
           "Enabled": true,
           "Components": [
             {
-              "__type": "Sandbox.BoxCollider",
-              "__guid": "5fb93207-ec7e-4a13-a218-5fe3c54f5b67",
-              "__enabled": false,
-              "Center": "9.099715,18.89993,-22.50015",
-              "IsTrigger": true,
-              "Scale": "500,500,328.8986",
-              "Static": false,
-              "SurfaceVelocity": "0,0,0"
-            },
-            {
               "__type": "Sandbox.ModelRenderer",
               "__guid": "6e53cca7-1237-47b8-8f0a-68efd44749bf",
               "BodyGroups": 18446744073709551615,
@@ -251,16 +241,6 @@
               "SurfaceVelocity": "0,0,0"
             },
             {
-              "__type": "Sandbox.BoxCollider",
-              "__guid": "74f3f99a-6cf0-433f-a0de-4fd8010cb235",
-              "__enabled": false,
-              "Center": "-6.500003,6.499999,246.2",
-              "IsTrigger": true,
-              "Scale": "500,500,200",
-              "Static": false,
-              "SurfaceVelocity": "0,0,0"
-            },
-            {
               "__type": "Sandbox.Player.GenericColliderController",
               "__guid": "d610d5bb-5585-44f4-9731-d1a7410ef7c9",
               "CurrentActionType": "Rocking",
@@ -301,6 +281,65 @@
                   "__type": "NameTagPanel",
                   "__guid": "d2462f92-d81c-450c-85f8-ad2e33bae4f2",
                   "Name": "Press E to start or stop \nmining the rock"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "__guid": "d1c21461-32bb-4fdf-95d1-f313a82df4be",
+          "Flags": 0,
+          "Name": "Workbench",
+          "Position": "507.1428,560.0497,-70.67267",
+          "Rotation": "0,0,0.3826834,0.9238796",
+          "Enabled": true,
+          "Components": [
+            {
+              "__type": "Sandbox.Prop",
+              "__guid": "ee890816-4505-4238-9f72-9907ae78944e",
+              "BodyGroups": 18446744073709551615,
+              "Health": 0,
+              "IsStatic": false,
+              "Model": "models/props/workbench/workbench_a.vmdl",
+              "StartAsleep": false,
+              "Tint": "1,1,1,1"
+            },
+            {
+              "__type": "Sandbox.ModelCollider",
+              "__guid": "5532438d-82de-4ed8-b220-158f39bc8fa5",
+              "IsTrigger": false,
+              "Static": false,
+              "SurfaceVelocity": "0,0,0"
+            }
+          ],
+          "Children": [
+            {
+              "__guid": "627347fe-a817-4ba4-b645-8a4df0e5871d",
+              "Flags": 0,
+              "Name": "Rock Message",
+              "Position": "-6.646066,-2.042017,52.50462",
+              "Enabled": true,
+              "Components": [
+                {
+                  "__type": "Sandbox.WorldPanel",
+                  "__guid": "bc5a76e6-a757-4912-b1d7-27deeada1a9a",
+                  "HorizontalAlign": "Center",
+                  "InteractionRange": 1000,
+                  "LookAtCamera": true,
+                  "PanelSize": "1675,512",
+                  "RenderOptions": {
+                    "GameLayer": true,
+                    "OverlayLayer": false,
+                    "BloomLayer": false,
+                    "AfterUILayer": false
+                  },
+                  "RenderScale": 1,
+                  "VerticalAlign": "Center"
+                },
+                {
+                  "__type": "NameTagPanel",
+                  "__guid": "3823e2e7-9c2e-4fd5-9fdd-a1a8cf72e711",
+                  "Name": "Press E to interact with the upgrade workbench"
                 }
               ]
             }
@@ -549,7 +588,8 @@
       "__guid": "e5d606ea-994e-41f8-86b2-a95e5a85a2a1",
       "Flags": 0,
       "Name": "SpawnPoint",
-      "Position": "-130.8714,-67.90466,1.507481",
+      "Position": "73.03547,-0.5446453,-0.6517696",
+      "Rotation": "0,0,0.258819,0.9659258",
       "Enabled": true,
       "Components": [
         {
@@ -589,6 +629,7 @@
   "Title": "main",
   "Description": null,
   "__references": [
+    "fpopium.workbench_a#54870",
     "orus.8riv_scrubtree_b01#33979",
     "rust.rock_med_c#25123"
   ],
