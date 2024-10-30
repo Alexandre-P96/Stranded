@@ -55,12 +55,12 @@ public sealed class CameraMovement : Component
 
     private void RotateHead()
     {
-        var eyeAngles = Head.Transform.Rotation.Angles();
+        var eyeAngles = Head.WorldRotation.Angles();
         eyeAngles.pitch += Input.MouseDelta.y * 0.1f;
         eyeAngles.yaw -= Input.MouseDelta.x * 0.1f;
         eyeAngles.roll = 0f;
         eyeAngles.pitch = eyeAngles.pitch.Clamp(-89.9f, 89.9f);
-        Head.Transform.Rotation = Rotation.From(eyeAngles);
+        Head.WorldRotation = Rotation.From(eyeAngles);
     }
 
     private void UpdateCurrentOffset()
@@ -85,12 +85,12 @@ public sealed class CameraMovement : Component
         }
 
         _camera.Transform.Position = camPos;
-        _camera.Transform.Rotation = Head.Transform.Rotation;
+        _camera.WorldRotation = Head.WorldRotation;
     }
 
     private Vector3 GetThirdPersonCameraPosition(Vector3 camPos)
     {
-        var camForward = Head.Transform.Rotation.Forward;
+        var camForward = Head.WorldRotation.Forward;
         var camTrace = Scene.Trace.Ray(camPos, camPos - (camForward * Distance)).WithoutTags("player", "trigger").Run();
 
         return camTrace.Hit ? camTrace.HitPosition + camTrace.Normal : camTrace.EndPosition;

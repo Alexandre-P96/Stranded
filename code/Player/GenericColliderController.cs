@@ -1,6 +1,6 @@
 namespace Sandbox.Player;
 
-public sealed class GenericColliderController : Component, Component.ITriggerListener
+public sealed class GenericColliderController : Component
 {
     [Property] public ActionType CurrentActionType { get; set; } // Add property to specify action type
 
@@ -8,8 +8,9 @@ public sealed class GenericColliderController : Component, Component.ITriggerLis
     private SoundEvent StopSound = new("sounds/tools/sfm/denyundo.vsnd_c") { UI = true };
 
     private bool CanStartAction;
-    private bool IsWithinRange;
-    private PlayerController Player { get; set; }
+    private SceneTraceResult SceneTraceResult;
+    private float DelayOnActionChecking;
+    [Property] public PlayerController Player { get; set; }
 
     public enum ActionType
     {
@@ -17,58 +18,99 @@ public sealed class GenericColliderController : Component, Component.ITriggerLis
         Rocking
     }
 
-    public void OnTriggerEnter(Collider other)
-    {
-        if (other is CapsuleCollider && other.Tags.Has("player"))
-        {
-            Player = other.Components.Get<PlayerController>();
-            Log.Info($"{CurrentActionType} on trigger");
-            CanStartAction = true;
-            IsWithinRange = true;
-        }
-    }
-
     protected override void OnUpdate()
     {
-        if (Player != null && IsWithinRange)
-        {
-            if (Input.Pressed("use") && CanStartAction)
-            {
-                Sound.Play(StartSound);
-                SetPlayerAction(true);
-                CanStartAction = false;
-            }
-            else if (Input.Pressed("use") && !CanStartAction)
-            {
-                Sound.Play(StopSound);
-                SetPlayerAction(false);
-                CanStartAction = true;
-                Player.Timer = 0f;
-            }
-        }
+	    if (Player == null)
+		    return;
+
+	    PerformSceneTrace();
+
+	    if (SceneTraceResult.Hit)
+	    {
+		    HandleHit();
+	    }
+	    else
+	    {
+		    HandleNoHit();
+	    }
     }
 
-    public void OnTriggerExit(Collider other)
+    private void PerformSceneTrace()
     {
-        if (Player != null && IsWithinRange)
-        {
-            if (IsPlayerActionActive())
-                Sound.Play(StopSound);
-
-            Log.Info($"outside {CurrentActionType}");
-            CanStartAction = false;
-            SetPlayerAction(false);
-            Player.Timer = 0f;
-            IsWithinRange = false;
-        }
+	    SceneTraceResult = Scene.Trace.FromTo(Player.Head.WorldPosition, Player.Head.WorldPosition + Player.Head.WorldRotation.Forward * 30)
+		    .Size(30f)
+		    .WithAnyTags("tree", "rock")
+		    .Run();
     }
 
-    private void SetPlayerAction(bool isActive)
+    private void HandleHit()
+    {
+	    Log.Info("Hit tree");
+
+	    if (Input.Pressed("use"))
+	    {
+		    if (CanStartAction)
+		    {
+			    StartAction();
+		    }
+		    else
+		    {
+			    StopAction();
+		    }
+	    }
+    }
+
+    private void StartAction()
+    {
+	    Sound.Play(StartSound);
+	    if (SceneTraceResult.Tags.Contains("tree"))
+	    {
+		    SetPlayerCutting(true);
+	    }
+	    else if (SceneTraceResult.Tags.Contains("rock"))
+	    {
+		    SetPlayerRocking(true);
+	    }
+
+	    CanStartAction = false;
+    }
+
+    private void StopAction()
+    {
+	    Sound.Play(StopSound);
+	    SetPlayerCutting(false);
+	    SetPlayerRocking(false);
+	    CanStartAction = true;
+	    Player.Timer = 0f;
+    }
+
+    private void HandleNoHit()
+    {
+	    DelayOnActionChecking += Time.Delta;
+
+	    if (DelayOnActionChecking < 0.5f)
+		    return;
+
+	    if (IsPlayerActionActive())
+		    Sound.Play(StopSound);
+
+	    SetPlayerCutting(false);
+	    SetPlayerRocking(false);
+	    CanStartAction = true;
+	    Player.Timer = 0f;
+	    DelayOnActionChecking = 0f;
+    }
+
+    private void SetPlayerCutting(bool isActive)
     {
         if (CurrentActionType == ActionType.Cutting)
             Player.IsCutting = isActive;
-        else if (CurrentActionType == ActionType.Rocking)
-            Player.IsRocking = isActive;
+    }
+    
+    private void SetPlayerRocking(bool isActive)
+    {
+		if (CurrentActionType == ActionType.Rocking)
+		    Player.IsRocking = isActive;
     }
 
     private bool IsPlayerActionActive()

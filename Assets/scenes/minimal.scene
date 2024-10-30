@@ -2,6 +2,21 @@
   "__guid": "90006ca2-1e7b-4edf-b19b-fc58ca66a122",
   "GameObjects": [
     {
+      "__guid": "cdcc14c6-392c-4a05-95a8-dbfc1e7ef624",
+      "Flags": 0,
+      "Name": "Scene Information",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.SceneInformation",
+          "__guid": "b62161e0-af68-40f3-93e7-92193849dab2",
+          "Description": "",
+          "SceneTags": "",
+          "Title": "main"
+        }
+      ]
+    },
+    {
       "__guid": "182416b4-f808-4011-9ed9-5bc7a7350230",
       "Flags": 0,
       "Name": "Environment",
@@ -22,6 +37,12 @@
               "BodyGroups": 18446744073709551615,
               "MaterialOverride": "materials/default.vmat",
               "Model": "models/dev/plane.vmdl",
+              "RenderOptions": {
+                "GameLayer": true,
+                "OverlayLayer": false,
+                "BloomLayer": false,
+                "AfterUILayer": false
+              },
               "RenderType": "On",
               "Tint": "0.39608,0.5098,0.27059,1"
             },
@@ -32,7 +53,8 @@
               "IsTrigger": false,
               "Scale": "100,100,50",
               "Static": false,
-              "Surface": "surfaces/grass.surface"
+              "Surface": "surfaces/grass.surface",
+              "SurfaceVelocity": "0,0,0"
             }
           ]
         },
@@ -60,13 +82,13 @@
           "__guid": "00344a8c-fa5e-45ae-b12a-10bb781a1dc3",
           "Flags": 0,
           "Name": "2D Skybox",
-          "Position": "0,0,0",
           "Tags": "skybox",
           "Enabled": true,
           "Components": [
             {
               "__type": "Sandbox.SkyBox2D",
               "__guid": "4718c436-f05b-4609-a3f4-3dcd73958ac7",
+              "SkyIndirectLighting": true,
               "SkyMaterial": "materials/skybox/skybox_day_01.vmat",
               "Tint": "1,1,1,1"
             },
@@ -82,6 +104,7 @@
               "Feathering": 0.02,
               "FrameInterval": 5,
               "MaxDistance": 512,
+              "MultiBounce": false,
               "Projection": "Sphere",
               "RenderDynamically": false,
               "TintColor": "1,1,1,1",
@@ -95,7 +118,6 @@
           "__guid": "bfc59c12-1ed2-4f91-8956-a95a315eac3c",
           "Flags": 0,
           "Name": "Sun",
-          "Position": "0,0,0",
           "Rotation": "-0.0729315,0.4822396,0.1305433,0.8631827",
           "Tags": "light_directional,light",
           "Enabled": true,
@@ -117,21 +139,30 @@
           "Name": "Basic Tree",
           "Position": "776.7717,118.6568,19.39194",
           "Scale": "0.4635988,0.4635988,0.4635988",
+          "Tags": "tree",
           "Enabled": true,
           "Components": [
             {
               "__type": "Sandbox.BoxCollider",
               "__guid": "5fb93207-ec7e-4a13-a218-5fe3c54f5b67",
+              "__enabled": false,
               "Center": "9.099715,18.89993,-22.50015",
               "IsTrigger": true,
               "Scale": "500,500,328.8986",
-              "Static": false
+              "Static": false,
+              "SurfaceVelocity": "0,0,0"
             },
             {
               "__type": "Sandbox.ModelRenderer",
               "__guid": "6e53cca7-1237-47b8-8f0a-68efd44749bf",
               "BodyGroups": 18446744073709551615,
               "Model": "models/8riv_scrubtree_b01.vmdl",
+              "RenderOptions": {
+                "GameLayer": true,
+                "OverlayLayer": false,
+                "BloomLayer": false,
+                "AfterUILayer": false
+              },
               "RenderType": "On",
               "Tint": "1,1,1,1"
             },
@@ -140,12 +171,19 @@
               "__guid": "b91912be-e4db-43aa-a6dd-16006e03ab8c",
               "IsTrigger": false,
               "Model": "models/8riv_scrubtree_b01.vmdl",
-              "Static": false
+              "Static": false,
+              "SurfaceVelocity": "0,0,0"
             },
             {
               "__type": "Sandbox.Player.GenericColliderController",
               "__guid": "a04eb6ff-1835-4138-907b-b4ae0fa43f37",
-              "CurrentActionType": "Cutting"
+              "CurrentActionType": "Cutting",
+              "Player": {
+                "_type": "component",
+                "component_id": "1cf326fa-a093-4dfa-81c3-968492bb5388",
+                "go": "8f903d47-b54e-4c0d-8b09-3cc11cde34fa",
+                "component_type": "PlayerController"
+              }
             }
           ],
           "Children": [
@@ -164,6 +202,12 @@
                   "InteractionRange": 1000,
                   "LookAtCamera": true,
                   "PanelSize": "1400,512",
+                  "RenderOptions": {
+                    "GameLayer": true,
+                    "OverlayLayer": false,
+                    "BloomLayer": false,
+                    "AfterUILayer": false
+                  },
                   "RenderScale": 1,
                   "VerticalAlign": "Center"
                 },
@@ -181,6 +225,7 @@
           "Flags": 0,
           "Name": "Basic Rock",
           "Position": "53.22141,691.2079,-217.8196",
+          "Tags": "rock",
           "Enabled": true,
           "Components": [
             {
@@ -188,6 +233,12 @@
               "__guid": "5d6471a3-3a1e-41fc-a60e-52911c780211",
               "BodyGroups": 18446744073709551615,
               "Model": "models/rust_nature/rocks/rock_med_c.vmdl",
+              "RenderOptions": {
+                "GameLayer": true,
+                "OverlayLayer": false,
+                "BloomLayer": false,
+                "AfterUILayer": false
+              },
               "RenderType": "On",
               "Tint": "1,1,1,1"
             },
@@ -196,20 +247,29 @@
               "__guid": "af1216bc-657f-4b11-aed8-57f271ce7a4d",
               "IsTrigger": false,
               "Model": "models/rust_nature/rocks/rock_med_c.vmdl",
-              "Static": true
+              "Static": true,
+              "SurfaceVelocity": "0,0,0"
             },
             {
               "__type": "Sandbox.BoxCollider",
               "__guid": "74f3f99a-6cf0-433f-a0de-4fd8010cb235",
+              "__enabled": false,
               "Center": "-6.500003,6.499999,246.2",
               "IsTrigger": true,
               "Scale": "500,500,200",
-              "Static": false
+              "Static": false,
+              "SurfaceVelocity": "0,0,0"
             },
             {
               "__type": "Sandbox.Player.GenericColliderController",
               "__guid": "d610d5bb-5585-44f4-9731-d1a7410ef7c9",
-              "CurrentActionType": "Rocking"
+              "CurrentActionType": "Rocking",
+              "Player": {
+                "_type": "component",
+                "component_id": "1cf326fa-a093-4dfa-81c3-968492bb5388",
+                "go": "8f903d47-b54e-4c0d-8b09-3cc11cde34fa",
+                "component_type": "PlayerController"
+              }
             }
           ],
           "Children": [
@@ -228,6 +288,12 @@
                   "InteractionRange": 1000,
                   "LookAtCamera": true,
                   "PanelSize": "1400,512",
+                  "RenderOptions": {
+                    "GameLayer": true,
+                    "OverlayLayer": false,
+                    "BloomLayer": false,
+                    "AfterUILayer": false
+                  },
                   "RenderScale": 1,
                   "VerticalAlign": "Center"
                 },
@@ -268,7 +334,8 @@
           "IsTrigger": false,
           "Radius": 13.1,
           "Start": "0,0,12.1",
-          "Static": false
+          "Static": false,
+          "SurfaceVelocity": "0,0,0"
         },
         {
           "__type": "Sandbox.Player.PlayerController",
@@ -324,6 +391,20 @@
               "BodyGroups": 341,
               "CreateBoneObjects": false,
               "Model": "models/citizen/citizen.vmdl",
+              "Morphs": {},
+              "Parameters": {
+                "bools": {},
+                "ints": {},
+                "floats": {},
+                "vectors": {},
+                "rotations": {}
+              },
+              "RenderOptions": {
+                "GameLayer": true,
+                "OverlayLayer": false,
+                "BloomLayer": false,
+                "AfterUILayer": false
+              },
               "RenderType": "On",
               "Tint": "1,1,1,1",
               "UseAnimGraph": true
@@ -445,7 +526,6 @@
           "__guid": "0e0d71d5-1671-42b5-96b4-09f2c37f9585",
           "Flags": 0,
           "Name": "Escape",
-          "Position": "0,0,0",
           "Enabled": true,
           "Components": [
             {
@@ -485,9 +565,13 @@
     "MaxFixedUpdates": 5,
     "NetworkFrequency": 60,
     "NetworkInterpolation": true,
+    "PhysicsSubSteps": 1,
     "ThreadedAnimation": true,
     "TimeScale": 1,
     "UseFixedUpdate": true,
+    "Metadata": {
+      "Title": "main"
+    },
     "NavMesh": {
       "Enabled": false,
       "IncludeStaticBodies": true,
@@ -501,12 +585,12 @@
       "IncludedBodies": ""
     }
   },
+  "ResourceVersion": 2,
   "Title": "main",
-  "Description": "",
-  "ResourceVersion": 1,
+  "Description": null,
   "__references": [
     "orus.8riv_scrubtree_b01#33979",
     "rust.rock_med_c#25123"
   ],
-  "__version": 1
+  "__version": 2
 }
