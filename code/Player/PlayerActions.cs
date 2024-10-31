@@ -1,4 +1,5 @@
 using System;
+using System.Runtime.CompilerServices;
 using Sandbox.Citizen;
 
 namespace Sandbox.Player;
@@ -51,7 +52,7 @@ public sealed class PlayerActions : Component
     TimeSince _lastPunch;
     private SoundEvent ResourceGained = new("sounds/kenney/ui/drop_002.vsnd_c") { UI = true, Volume = 2};
 
-        protected override void OnStart()
+	protected override void OnStart()
     {
         InitializeComponents();
         ApplyClothing();
@@ -357,4 +358,18 @@ public sealed class PlayerActions : Component
 	    }
 	    _wasInAir = !_characterController.IsOnGround;
     }
+    
+    public void BuyUpgrade(string upgrade)
+	{
+	    if (upgrade == "Mining")
+	    {
+		    Log.Info( "Trying to upgrade mining" );
+		    Rocks -= 1;
+	    }
+	    else if (upgrade == "Woodcutting")
+	    {
+			Log.Info( "Trying to upgrade woodcutting" );
+			Logs -= 1;
+	    }
+	}
 }

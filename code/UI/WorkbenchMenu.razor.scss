@@ -9,13 +9,13 @@ WorkbenchMenu
 	justify-content: center;
 	align-items: center;
 	font-weight: bold;
-
 	font-family: "ＭＳ Ｐゴシック";
-	font-size: 64px;
+	font-size: 40px;
 	transition: opacity 0.2s ease;
-	background-color: rgb(43, 43, 43, 0.8);
+	background-color: rgb(43, 43, 43, 0.98);
+	border-radius: 25px;
 	pointer-events: all;
-
+	
 	.title
 	{
 		font-size: 25px;
@@ -25,5 +25,16 @@ WorkbenchMenu
 
 	&.hide {
 		opacity: 0;
+	}
+
+	> .button {
+		display: flex;
+	    border: 1px solid #888888;
+		border-radius: 15px;
+		padding: 10px;
+		margin: 10px;
+		&:hover {
+			sound-in: ui.button.press;
+		}
 	}
 }

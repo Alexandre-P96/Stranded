@@ -35,7 +35,7 @@
               "__type": "Sandbox.ModelRenderer",
               "__guid": "07ed483c-fb59-4068-b343-a800980e7150",
               "BodyGroups": 18446744073709551615,
-              "MaterialOverride": "materials/default.vmat",
+              "MaterialOverride": "materials/grassfloor002a.vmat",
               "Model": "models/dev/plane.vmdl",
               "RenderOptions": {
                 "GameLayer": true,
@@ -64,7 +64,7 @@
           "Name": "Directional Light",
           "Position": "-192.2297,124.6599,129.1821",
           "Rotation": "-0.2459842,0.5938582,0.2931525,0.7077327",
-          "Tags": "light_directional,light",
+          "Tags": "light,light_directional",
           "Enabled": true,
           "Components": [
             {
@@ -120,7 +120,7 @@
           "Flags": 0,
           "Name": "Sun",
           "Rotation": "-0.0729315,0.4822396,0.1305433,0.8631827",
-          "Tags": "light,light_directional",
+          "Tags": "light_directional,light",
           "Enabled": true,
           "Components": [
             {
@@ -729,6 +729,196 @@
           "Color": "0.8902,0.31765,0.05098,1"
         }
       ]
+    },
+    {
+      "__guid": "db3f18a5-f661-4b34-8fcb-7c35f3f76c9b",
+      "Flags": 0,
+      "Name": "Cube",
+      "Position": "-447.6427,-416.581,54.14396",
+      "Components": [
+        {
+          "__type": "Sandbox.ModelRenderer",
+          "__guid": "66886157-c6db-4968-8831-07f45cb9ba36",
+          "BodyGroups": 18446744073709551615,
+          "Model": "models/dev/box.vmdl",
+          "RenderOptions": {
+            "GameLayer": true,
+            "OverlayLayer": false,
+            "BloomLayer": false,
+            "AfterUILayer": false
+          },
+          "RenderType": "On",
+          "Tint": "1,1,1,1"
+        },
+        {
+          "__type": "Sandbox.BoxCollider",
+          "__guid": "85c02fe1-2320-48f7-8053-c9e66fedfe34",
+          "Center": "0,0,0",
+          "IsTrigger": false,
+          "Scale": "32,32,32",
+          "Static": false,
+          "SurfaceVelocity": "0,0,0"
+        },
+        {
+          "__type": "NavMeshTest",
+          "__guid": "54562d80-3085-43eb-8ec6-89c52075be27",
+          "AttractAgents": true,
+          "Player": {
+            "_type": "component",
+            "component_id": "fa026736-bc39-4a30-8160-eec3dc3acf65",
+            "go": "8f903d47-b54e-4c0d-8b09-3cc11cde34fa",
+            "component_type": "PlayerActions"
+          }
+        },
+        {
+          "__type": "Sandbox.CharacterController",
+          "__guid": "67eed7f1-bbf0-443d-9b7a-0825dfa7b847",
+          "Acceleration": 10,
+          "Bounciness": 0.3,
+          "GroundAngle": 45,
+          "Height": 64,
+          "IgnoreLayers": "",
+          "Radius": 16,
+          "StepHeight": 18,
+          "UseCollisionRules": false
+        },
+        {
+          "__type": "Sandbox.NavMeshAgent",
+          "__guid": "25d78091-4b91-494a-953b-1e0570970823",
+          "Acceleration": 100,
+          "Height": 25.59957,
+          "MaxSpeed": 250,
+          "Radius": 36.200104,
+          "Separation": 0.25,
+          "UpdatePosition": true,
+          "UpdateRotation": true
+        }
+      ]
+    },
+    {
+      "__guid": "56354d63-6cbd-4b09-9892-18baa0898f7d",
+      "Flags": 0,
+      "Name": "Player (1)",
+      "Position": "234.0827,70.25638,13.44455",
+      "Tags": "player",
+      "Components": [
+        {
+          "__type": "Sandbox.CharacterController",
+          "__guid": "4b1c8987-9727-4383-af48-ccef15cd9f69",
+          "Acceleration": 10,
+          "Bounciness": 0.3,
+          "GroundAngle": 45,
+          "Height": 64,
+          "IgnoreLayers": "player",
+          "Radius": 10.95,
+          "StepHeight": 18,
+          "UseCollisionRules": false
+        },
+        {
+          "__type": "Sandbox.CapsuleCollider",
+          "__guid": "60a3e1db-e140-4e1d-813c-28ddc09e1503",
+          "End": "0,0,57.2",
+          "IsTrigger": false,
+          "Radius": 13.1,
+          "Start": "0,0,12.1",
+          "Static": false,
+          "SurfaceVelocity": "0,0,0"
+        },
+        {
+          "__type": "Sandbox.Citizen.CitizenAnimationHelper",
+          "__guid": "6a4c47be-836e-4dd6-9fd9-643f4388e839",
+          "BodyWeight": 1,
+          "EyesWeight": 1,
+          "HeadWeight": 1,
+          "LookAtEnabled": false,
+          "Target": {
+            "_type": "component",
+            "component_id": "5cd53265-d594-489c-9598-fa8c42b4902e",
+            "go": "b9c1252f-140f-43f9-977d-757d9b469bee",
+            "component_type": "SkinnedModelRenderer"
+          }
+        },
+        {
+          "__type": "Sandbox.Player.PlayerActions",
+          "__guid": "80383234-87ba-47fb-95a1-424fedbb2dbb",
+          "__enabled": false,
+          "AirControl": 0.1,
+          "Body": {
+            "_type": "gameobject",
+            "go": "b9c1252f-140f-43f9-977d-757d9b469bee"
+          },
+          "CrouchSpeed": 90,
+          "GroundControl": 4,
+          "Head": null,
+          "Health": 100,
+          "Inventory": [
+            "Fist"
+          ],
+          "JumpForce": 350,
+          "Logs": 1,
+          "MaxForce": 50,
+          "MaxHealth": 100,
+          "Rocks": 0,
+          "RunSpeed": 290,
+          "Speed": 160
+        },
+        {
+          "__type": "Sandbox.NavMeshAgent",
+          "__guid": "a76784f3-77bc-43c4-acff-2a28a9df131f",
+          "Acceleration": 50,
+          "Height": 64,
+          "MaxSpeed": 120,
+          "Radius": 16,
+          "Separation": 0.25,
+          "UpdatePosition": true,
+          "UpdateRotation": true
+        },
+        {
+          "__type": "NavMeshTest",
+          "__guid": "a4573082-6c25-41f9-a75f-2deab259bde6",
+          "AttractAgents": true,
+          "Player": {
+            "_type": "component",
+            "component_id": "fa026736-bc39-4a30-8160-eec3dc3acf65",
+            "go": "8f903d47-b54e-4c0d-8b09-3cc11cde34fa",
+            "component_type": "PlayerActions"
+          }
+        }
+      ],
+      "Children": [
+        {
+          "__guid": "b9c1252f-140f-43f9-977d-757d9b469bee",
+          "Flags": 0,
+          "Name": "Body",
+          "Enabled": true,
+          "Components": [
+            {
+              "__type": "Sandbox.SkinnedModelRenderer",
+              "__guid": "5cd53265-d594-489c-9598-fa8c42b4902e",
+              "BodyGroups": 341,
+              "CreateBoneObjects": false,
+              "Model": "models/citizen/citizen.vmdl",
+              "Morphs": {},
+              "Parameters": {
+                "bools": {},
+                "ints": {},
+                "floats": {},
+                "vectors": {},
+                "rotations": {}
+              },
+              "RenderOptions": {
+                "GameLayer": true,
+                "OverlayLayer": false,
+                "BloomLayer": false,
+                "AfterUILayer": false
+              },
+              "RenderType": "On",
+              "Tint": "1,1,1,1",
+              "UseAnimGraph": true
+            }
+          ]
+        }
+      ]
     }
   ],
   "SceneProperties": {
@@ -744,7 +934,7 @@
       "Title": "main"
     },
     "NavMesh": {
-      "Enabled": false,
+      "Enabled": true,
       "IncludeStaticBodies": true,
       "IncludeKeyframedBodies": true,
       "EditorAutoUpdate": true,

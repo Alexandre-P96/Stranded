@@ -5,13 +5,19 @@
 @namespace Sandbox
 
 <root class="@(IsOpen ? "" : "hide")">
-	<div class="title">Yo</div>
+	<div class="button" onclick="@(() => OnTreeUpgrades("Woodcutting"))">
+		Buy upgrade 🌳
+	</div>
+	<div class="button" onclick="@(() => OnTreeUpgrades("Mining"))">
+		Buy upgrade 🧱
+	</div>
 </root>
 
 @code
 {
 
 	[Property] PlayerActions Player { get; set; }
+	[Property] GenericColliderController Collider { get; set; }
 	
 	public bool IsOpen { get; set; } = false;
 	
@@ -28,10 +34,20 @@
 		{
 			IsOpen = !IsOpen;
 		}
+		else if ( !sceneTraceResult.Hit || Input.Pressed( "use" ))
+		{
+			IsOpen = false;
+		}
 	}
 
 	/// <summary>
 	/// the hash determines if the system should be rebuilt. If it changes, it will be rebuilt
 	/// </summary>
 	protected override int BuildHash() => System.HashCode.Combine( IsOpen );
+
+	private void OnTreeUpgrades(string ressource)
+	{
+		Log.Info("Upgrading");
+		Player.BuyUpgrade( ressource );
+	}
 }
