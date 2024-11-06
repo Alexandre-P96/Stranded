@@ -163,13 +163,13 @@ public sealed class PlayerActions : Component
     {
         if (_characterController is null) return;
 
-        if (Input.Pressed("Crouch") && !IsCrouching)
+        if (Input.Pressed("Duck") && !IsCrouching)
         {
             IsCrouching = true;
             _characterController.Height /= 2f;
         }
 
-        if (Input.Released("Crouch") && IsCrouching)
+        if (Input.Released("Duck") && IsCrouching)
         {
             IsCrouching = false;
             _characterController.Height *= 2f;
