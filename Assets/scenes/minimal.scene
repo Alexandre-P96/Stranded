@@ -24,41 +24,6 @@
       "Enabled": true,
       "Children": [
         {
-          "__guid": "8d7ac77b-f9e4-4c0c-a93f-e9e033e728d0",
-          "Flags": 0,
-          "Name": "Floor",
-          "Position": "0,124.6599,-70.81791",
-          "Scale": "25,25,0.005809421",
-          "Enabled": true,
-          "Components": [
-            {
-              "__type": "Sandbox.ModelRenderer",
-              "__guid": "07ed483c-fb59-4068-b343-a800980e7150",
-              "BodyGroups": 18446744073709551615,
-              "MaterialOverride": "materials/grassfloor002a.vmat",
-              "Model": "models/dev/plane.vmdl",
-              "RenderOptions": {
-                "GameLayer": true,
-                "OverlayLayer": false,
-                "BloomLayer": false,
-                "AfterUILayer": false
-              },
-              "RenderType": "On",
-              "Tint": "0.39608,0.5098,0.27059,1"
-            },
-            {
-              "__type": "Sandbox.BoxCollider",
-              "__guid": "44bebf05-a262-44bd-9ab3-f795b56d60ce",
-              "Center": "0,0,0",
-              "IsTrigger": false,
-              "Scale": "100,100,50",
-              "Static": false,
-              "Surface": "surfaces/grass.surface",
-              "SurfaceVelocity": "0,0,0"
-            }
-          ]
-        },
-        {
           "__guid": "78df1c94-61e7-47f3-93fd-58f68163f1ce",
           "Flags": 0,
           "Name": "Directional Light",
@@ -147,6 +112,7 @@
               "__type": "Sandbox.ModelRenderer",
               "__guid": "6e53cca7-1237-47b8-8f0a-68efd44749bf",
               "BodyGroups": 18446744073709551615,
+              "CreateAttachments": false,
               "Model": "models/8riv_scrubtree_b01.vmdl",
               "RenderOptions": {
                 "GameLayer": true,
@@ -258,6 +224,7 @@
               "__type": "Sandbox.ModelRenderer",
               "__guid": "5d6471a3-3a1e-41fc-a60e-52911c780211",
               "BodyGroups": 18446744073709551615,
+              "CreateAttachments": false,
               "Model": "models/rust_nature/rocks/rock_med_c.vmdl",
               "RenderOptions": {
                 "GameLayer": true,
@@ -378,6 +345,7 @@
               "__type": "Sandbox.ModelRenderer",
               "__guid": "30a41aa2-ee93-4dc8-a409-b05eda9255fe",
               "BodyGroups": 18446744073709551615,
+              "CreateAttachments": false,
               "Model": "models/props/workbench/workbench_a.vmdl",
               "RenderOptions": {
                 "GameLayer": true,
@@ -454,6 +422,73 @@
                   }
                 }
               ]
+            }
+          ]
+        },
+        {
+          "__guid": "3c99ad73-467c-4c4b-94e0-e04123a272ae",
+          "Flags": 0,
+          "Name": "Floor",
+          "Position": "8.8759,122.1169,-134.3641",
+          "Enabled": true,
+          "Components": [
+            {
+              "__type": "Sandbox.MeshComponent",
+              "__guid": "3843a8a6-e68f-4d40-a763-ffca902bad00",
+              "Collision": "Mesh",
+              "Color": "1,1,1,1",
+              "HideInGame": false,
+              "IsTrigger": false,
+              "Mesh": {
+                "Topology": "H4sIAAAAAAAACk2MAQoAIAgDrSz7/4drBwoOjmKbczO7Ygg0hYuTHuB1hXgS/so\u002Bqi4vOdnOrb6NT15bJXy63JDz/\u002Bg6SXigAAAA",
+                "Positions": [
+                  "-1254.992,-1245.492,64",
+                  "1254.992,-1245.492,64",
+                  "1254.992,1245.492,64",
+                  "-1254.992,1245.492,64"
+                ],
+                "TextureCoord": [
+                  "23.59893,25.35581",
+                  "0,0",
+                  "23.59893,-23.29621",
+                  "0,0",
+                  "-25.42419,-23.29621",
+                  "0,0",
+                  "-25.42419,25.35581",
+                  "0,0"
+                ],
+                "TextureUAxis": [
+                  "1,0,0"
+                ],
+                "TextureVAxis": [
+                  "0,-1,0"
+                ],
+                "TextureScale": [
+                  "0.1,0.1"
+                ],
+                "TextureOffset": [
+                  "-28.3224,501.8281"
+                ],
+                "MaterialIndex": [
+                  0
+                ],
+                "EdgeFlags": [
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0
+                ],
+                "Materials": [
+                  "materials/grassfloor002a.vmat"
+                ]
+              },
+              "SmoothingAngle": 40,
+              "Static": true,
+              "SurfaceVelocity": "0,0,0"
             }
           ]
         }
@@ -540,6 +575,7 @@
               "__type": "Sandbox.SkinnedModelRenderer",
               "__guid": "56d9a802-2768-4795-aab3-366d8e664e0c",
               "BodyGroups": 341,
+              "CreateAttachments": false,
               "CreateBoneObjects": false,
               "Model": "models/citizen/citizen.vmdl",
               "Morphs": {},
@@ -731,71 +767,6 @@
       ]
     },
     {
-      "__guid": "db3f18a5-f661-4b34-8fcb-7c35f3f76c9b",
-      "Flags": 0,
-      "Name": "Cube",
-      "Position": "-447.6427,-416.581,54.14396",
-      "Components": [
-        {
-          "__type": "Sandbox.ModelRenderer",
-          "__guid": "66886157-c6db-4968-8831-07f45cb9ba36",
-          "BodyGroups": 18446744073709551615,
-          "Model": "models/dev/box.vmdl",
-          "RenderOptions": {
-            "GameLayer": true,
-            "OverlayLayer": false,
-            "BloomLayer": false,
-            "AfterUILayer": false
-          },
-          "RenderType": "On",
-          "Tint": "1,1,1,1"
-        },
-        {
-          "__type": "Sandbox.BoxCollider",
-          "__guid": "85c02fe1-2320-48f7-8053-c9e66fedfe34",
-          "Center": "0,0,0",
-          "IsTrigger": false,
-          "Scale": "32,32,32",
-          "Static": false,
-          "SurfaceVelocity": "0,0,0"
-        },
-        {
-          "__type": "NavMeshTest",
-          "__guid": "54562d80-3085-43eb-8ec6-89c52075be27",
-          "AttractAgents": true,
-          "Player": {
-            "_type": "component",
-            "component_id": "fa026736-bc39-4a30-8160-eec3dc3acf65",
-            "go": "8f903d47-b54e-4c0d-8b09-3cc11cde34fa",
-            "component_type": "PlayerActions"
-          }
-        },
-        {
-          "__type": "Sandbox.CharacterController",
-          "__guid": "67eed7f1-bbf0-443d-9b7a-0825dfa7b847",
-          "Acceleration": 10,
-          "Bounciness": 0.3,
-          "GroundAngle": 45,
-          "Height": 64,
-          "IgnoreLayers": "",
-          "Radius": 16,
-          "StepHeight": 18,
-          "UseCollisionRules": false
-        },
-        {
-          "__type": "Sandbox.NavMeshAgent",
-          "__guid": "25d78091-4b91-494a-953b-1e0570970823",
-          "Acceleration": 100,
-          "Height": 25.59957,
-          "MaxSpeed": 250,
-          "Radius": 36.200104,
-          "Separation": 0.25,
-          "UpdatePosition": true,
-          "UpdateRotation": true
-        }
-      ]
-    },
-    {
       "__guid": "56354d63-6cbd-4b09-9892-18baa0898f7d",
       "Flags": 0,
       "Name": "Player (1)",
@@ -849,7 +820,6 @@
           },
           "CrouchSpeed": 90,
           "GroundControl": 4,
-          "Head": null,
           "Health": 100,
           "Inventory": [
             "Fist"
@@ -896,6 +866,7 @@
               "__type": "Sandbox.SkinnedModelRenderer",
               "__guid": "5cd53265-d594-489c-9598-fa8c42b4902e",
               "BodyGroups": 341,
+              "CreateAttachments": false,
               "CreateBoneObjects": false,
               "Model": "models/citizen/citizen.vmdl",
               "Morphs": {},
