@@ -3,7 +3,7 @@
 @using Sandbox.UI;
 @inherits PanelComponent
 
-<root>
+<root xmlns="http://www.w3.org/1999/html">
 	<div>
 		@if ( Player.IsRocking )
 		{
@@ -46,6 +46,16 @@
 				</div>
 			</div>
 		</div>
+
+	</div>
+
+	<div style="font-size: 100px; margin-top: 45px; display: flex; flex-direction: column;">
+		<p>Experience: @Player.WoodcuttingExperience</p>
+		<p>Level: @Player.WoodcuttingLevel</p>
+	</div>
+	<div style="font-size: 100px; margin-top: 45px; display: flex; flex-direction: column;">
+		<p>Experience: @Player.MiningExperience</p>
+		<p>Level: @Player.MiningLevel</p>
 	</div>
 
 	<div class="hotbar">

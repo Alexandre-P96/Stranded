@@ -10,6 +10,12 @@ public sealed class PlayerActions : Component
     [Property] public float MaxHealth { get; set; } = 100f;
     [Property] public long Logs { get; set; }
     [Property] public long Rocks { get; set; }
+    
+    public int WoodcuttingLevel { get; set; } = 1;
+    public long WoodcuttingExperience { get; set; } = 0;
+    public int MiningLevel { get; set; } = 1;
+    public long MiningExperience { get; set; } = 0;
+    
     [Property] public List<string> Inventory { get; set; } = new() { "Fist" };
 
     public int ActiveSlot = 0;
@@ -42,8 +48,8 @@ public sealed class PlayerActions : Component
 
     private CharacterController _characterController;
     private CitizenAnimationHelper _citizenAnimationHelper;
-    public float CuttingSpeed = 5f;
-    public float MiningSpeed = 5f;
+    public float CuttingSpeed = 1f;
+    public float MiningSpeed = 0.2f;
     public long CuttingAmount = 1;
     public long MiningAmount = 1;
     public float Timer;
@@ -284,10 +290,13 @@ public sealed class PlayerActions : Component
         if (actionType == GenericColliderController.ActionType.Cutting)
         {
             Logs += amount;
+            PlayerProgression.AddExperience( this, 25, actionType );
+            
         }
         else if (actionType == GenericColliderController.ActionType.Rocking)
         {
             Rocks += amount;
+            PlayerProgression.AddExperience( this, 25, actionType );
         }
     }
 

@@ -3,7 +3,9 @@
 public class PlayerData
 {
 	public int WoodcuttingLevel { get; set; } = 1;
+	public long WoodcuttingExperience { get; set; } = 0;
 	public int MiningLevel { get; set; } = 1;
+	public long MiningExperience { get; set; } = 0;
 	public long Wood { get; set; } = 0;
 	public long Rocks { get; set; } = 0;
 	

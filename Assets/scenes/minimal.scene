@@ -429,7 +429,7 @@
           "__guid": "3c99ad73-467c-4c4b-94e0-e04123a272ae",
           "Flags": 0,
           "Name": "Floor",
-          "Position": "8.8759,122.1169,-134.3641",
+          "Position": "8.8759,122.1169,-135.1697",
           "Enabled": true,
           "Components": [
             {
@@ -489,6 +489,152 @@
               "SmoothingAngle": 40,
               "Static": true,
               "SurfaceVelocity": "0,0,0"
+            }
+          ]
+        },
+        {
+          "__guid": "a0f454b9-9130-4ec8-83f9-00d85752ff9d",
+          "Flags": 0,
+          "Name": "Walls",
+          "Enabled": true,
+          "Children": [
+            {
+              "__guid": "7357706d-b326-4e09-a706-2a81be215638",
+              "Flags": 0,
+              "Name": "South Wall",
+              "Position": "-1246.52,123.1297,267.7787",
+              "Scale": "0.001349519,50.53773,13.66909",
+              "Enabled": true,
+              "Components": [
+                {
+                  "__type": "Sandbox.ModelRenderer",
+                  "__guid": "6e5bfd5d-1863-4cc1-91af-107d677713ba",
+                  "BodyGroups": 18446744073709551615,
+                  "CreateAttachments": false,
+                  "Model": "models/dev/box.vmdl",
+                  "RenderOptions": {
+                    "GameLayer": true,
+                    "OverlayLayer": false,
+                    "BloomLayer": false,
+                    "AfterUILayer": false
+                  },
+                  "RenderType": "On",
+                  "Tint": "1,1,1,0"
+                },
+                {
+                  "__type": "Sandbox.BoxCollider",
+                  "__guid": "af4d8f0e-8ddb-4a34-8625-4de158690098",
+                  "Center": "0,0,0",
+                  "IsTrigger": false,
+                  "Scale": "32,50.19986,49.60001",
+                  "Static": false,
+                  "SurfaceVelocity": "0,0,0"
+                }
+              ]
+            },
+            {
+              "__guid": "b7fc5595-7411-4c43-92b6-dae4a68c2aec",
+              "Flags": 0,
+              "Name": "North Wall",
+              "Position": "1259.178,123.1297,267.7787",
+              "Scale": "0.001349519,50.53773,13.66909",
+              "Enabled": true,
+              "Components": [
+                {
+                  "__type": "Sandbox.ModelRenderer",
+                  "__guid": "b67a4cf9-e9c6-46f1-93e8-0dcd9eb31368",
+                  "BodyGroups": 18446744073709551615,
+                  "CreateAttachments": false,
+                  "Model": "models/dev/box.vmdl",
+                  "RenderOptions": {
+                    "GameLayer": true,
+                    "OverlayLayer": false,
+                    "BloomLayer": false,
+                    "AfterUILayer": false
+                  },
+                  "RenderType": "On",
+                  "Tint": "1,1,1,0"
+                },
+                {
+                  "__type": "Sandbox.BoxCollider",
+                  "__guid": "557d5c12-cce9-4745-bd45-5288c7ee3618",
+                  "Center": "0,0,0",
+                  "IsTrigger": false,
+                  "Scale": "32,50.19986,49.60001",
+                  "Static": false,
+                  "SurfaceVelocity": "0,0,0"
+                }
+              ]
+            },
+            {
+              "__guid": "d194282f-4bff-4b32-b76a-6a2dd90fe95e",
+              "Flags": 0,
+              "Name": "East Wall",
+              "Position": "-3.627029,-1124.159,267.7786",
+              "Rotation": "0,0,0.7071067,0.7071068",
+              "Scale": "0.001349519,50.53773,13.66909",
+              "Enabled": true,
+              "Components": [
+                {
+                  "__type": "Sandbox.ModelRenderer",
+                  "__guid": "ac01d713-3241-4f08-9e0a-b55f09ee9935",
+                  "BodyGroups": 18446744073709551615,
+                  "CreateAttachments": false,
+                  "Model": "models/dev/box.vmdl",
+                  "RenderOptions": {
+                    "GameLayer": true,
+                    "OverlayLayer": false,
+                    "BloomLayer": false,
+                    "AfterUILayer": false
+                  },
+                  "RenderType": "On",
+                  "Tint": "1,1,1,0"
+                },
+                {
+                  "__type": "Sandbox.BoxCollider",
+                  "__guid": "338d23c4-9b11-411c-b877-ecae1456d096",
+                  "Center": "0,0,0",
+                  "IsTrigger": false,
+                  "Scale": "32,50.19986,49.60001",
+                  "Static": false,
+                  "SurfaceVelocity": "0,0,0"
+                }
+              ]
+            },
+            {
+              "__guid": "89acf958-7b02-4cb2-bb24-ecc7a4abc627",
+              "Flags": 0,
+              "Name": "West Wall",
+              "Position": "-3.626572,1364.703,267.7786",
+              "Rotation": "0,0,0.7071067,0.7071068",
+              "Scale": "0.001349519,50.53773,13.66909",
+              "Enabled": true,
+              "Components": [
+                {
+                  "__type": "Sandbox.ModelRenderer",
+                  "__guid": "c4e4846b-842b-4672-b741-ef8d12a8408e",
+                  "BodyGroups": 18446744073709551615,
+                  "CreateAttachments": false,
+                  "Model": "models/dev/box.vmdl",
+                  "RenderOptions": {
+                    "GameLayer": true,
+                    "OverlayLayer": false,
+                    "BloomLayer": false,
+                    "AfterUILayer": false
+                  },
+                  "RenderType": "On",
+                  "Tint": "1,1,1,0"
+                },
+                {
+                  "__type": "Sandbox.BoxCollider",
+                  "__guid": "0ff84063-489a-4bcf-819c-1797466992b7",
+                  "Center": "0,0,0",
+                  "IsTrigger": false,
+                  "Scale": "32,50.19986,49.60001",
+                  "Static": false,
+                  "SurfaceVelocity": "0,0,0"
+                }
+              ]
             }
           ]
         }
@@ -835,9 +981,9 @@
         {
           "__type": "Sandbox.NavMeshAgent",
           "__guid": "a76784f3-77bc-43c4-acff-2a28a9df131f",
-          "Acceleration": 50,
+          "Acceleration": 25000,
           "Height": 64,
-          "MaxSpeed": 120,
+          "MaxSpeed": 80,
           "Radius": 16,
           "Separation": 0.25,
           "UpdatePosition": true,
