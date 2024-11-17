@@ -6,56 +6,33 @@ namespace Sandbox.Player;
 
 public sealed class PlayerActions : Component
 {
+	[Property] public PlayerController Player { get; set; }
     [Property] public float Health { get; set; } = 100f;
     [Property] public float MaxHealth { get; set; } = 100f;
     [Property] public long Logs { get; set; }
     [Property] public long Rocks { get; set; }
+    [Property] public GameObject Head { get; set; }
+    [Property] public List<string> Inventory { get; set; } = new() { "Fist" };
     
     public int WoodcuttingLevel { get; set; } = 1;
-    public long WoodcuttingExperience { get; set; } = 0;
+    public long WoodcuttingExperience { get; set; } = 1;
     public int MiningLevel { get; set; } = 1;
     public long MiningExperience { get; set; } = 0;
-    
-    [Property] public List<string> Inventory { get; set; } = new() { "Fist" };
-
     public int ActiveSlot = 0;
     public int Slots => 9;
-
-    [Property, Group("Movement")] public float GroundControl { get; set; } = 4.0f;
-    [Property, Group("Movement")] public float AirControl { get; set; } = 0.1f;
-    [Property, Group("Movement")] public float MaxForce { get; set; } = 50f;
-    [Property, Group("Movement")] public float Speed { get; set; } = 160f;
-    [Property, Group("Movement")] public float RunSpeed { get; set; } = 290f;
-    [Property, Group("Movement")] public float CrouchSpeed { get; set; } = 90f;
-    [Property, Group("Movement")] public float JumpForce { get; set; } = 350f;
-    private float _footStepTimer = 0f;
-    private float _footStepInterval = 0.40f; // Adjust this value to set the interval for footstep sounds
-    private bool _wasInAir = false;
-
-    public float PunchStrength = 1f;
     public float PunchCooldown = 2f;
-    public float PunchRange = 50f;
     public ClothingContainer ClothingContainer;
-
-    [Property] public GameObject Head { get; set; }
-    [Property] public GameObject Body { get; set; }
-
-    public Vector3 WishVelocity = Vector3.Zero;
-    public bool IsCrouching;
-    public bool IsSprinting;
     public bool IsCutting = false;
     public bool IsRocking = false;
-
-    private CharacterController _characterController;
     private CitizenAnimationHelper _citizenAnimationHelper;
     public float CuttingSpeed = 1f;
-    public float MiningSpeed = 0.2f;
+    public float MiningSpeed = 1f;
     public long CuttingAmount = 1;
     public long MiningAmount = 1;
     public float Timer;
-    private float _soundTimer = 0f;
-    private float _saveTimer = 0f;
-    TimeSince _lastPunch;
+    private float _soundTimer;
+    private float _saveTimer;
+    private TimeSince _lastPunch;
     private SoundEvent ResourceGained = new("sounds/kenney/ui/drop_002.vsnd_c") { UI = true, Volume = 2};
 
 	protected override void OnStart()
@@ -67,15 +44,15 @@ public sealed class PlayerActions : Component
 
     protected override void OnUpdate()
     {
-        UpdateCrouch();
+        //UpdateCrouch();
         HandleInput();
-        RotateBody();
-        UpdateAnimations();
-        PlayFootStepSound();
+        //RotateBody();
+        //UpdateAnimations();
+       // PlayFootStepSound();
         StartAction(IsRocking, MiningSpeed, MiningAmount, GenericColliderController.ActionType.Rocking);
         StartAction(IsCutting, CuttingSpeed, CuttingAmount, GenericColliderController.ActionType.Cutting);
         SavePlayerData();
-        HandleLandingSound();
+        //HandleLandingSound();
     }
 
     private void SavePlayerData()
@@ -115,16 +92,9 @@ public sealed class PlayerActions : Component
 	    }
     }
 
-    protected override void OnFixedUpdate()
-    {
-        BuildWishVelocity();
-        Move();
-    }
-
     private void InitializeComponents()
     {
-        _characterController = Components.Get<CharacterController>();
-        _citizenAnimationHelper = Components.Get<CitizenAnimationHelper>();
+	    _citizenAnimationHelper = Player.Components.Get<CitizenAnimationHelper>();
     }
 
     private void ApplyClothing()
@@ -139,11 +109,6 @@ public sealed class PlayerActions : Component
 
     private void HandleInput()
     {
-        IsSprinting = Input.Down("Run");
-
-        if (Input.Pressed("Jump"))
-            Jump();
-
         if (Input.Pressed("attack1") && _lastPunch >= PunchCooldown)
             Punch();
 
@@ -164,106 +129,15 @@ public sealed class PlayerActions : Component
             ActiveSlot = ((ActiveSlot + Math.Sign(Input.MouseWheel.y)) % Slots) + Slots;
         }
     }
-
-    private void UpdateCrouch()
-    {
-        if (_characterController is null) return;
-
-        if (Input.Pressed("Duck") && !IsCrouching)
-        {
-            IsCrouching = true;
-            _characterController.Height /= 2f;
-        }
-
-        if (Input.Released("Duck") && IsCrouching)
-        {
-            IsCrouching = false;
-            _characterController.Height *= 2f;
-        }
-    }
-
-    private void BuildWishVelocity()
-    {
-        WishVelocity = 0;
-        var rot = Head.WorldRotation;
-
-        if (Input.Down("Forward")) WishVelocity += rot.Forward;
-        if (Input.Down("Backward")) WishVelocity += rot.Backward;
-        if (Input.Down("Left")) WishVelocity += rot.Left;
-        if (Input.Down("Right")) WishVelocity += rot.Right;
-
-        WishVelocity = WishVelocity.WithZ(0);
-
-        if (!WishVelocity.IsNearZeroLength) WishVelocity = WishVelocity.Normal;
-
-        if (IsCrouching) WishVelocity *= CrouchSpeed;
-        else if (IsSprinting) WishVelocity *= RunSpeed;
-        else WishVelocity *= Speed;
-    }
-
-    private void Move()
-    {
-        var gravity = Scene.PhysicsWorld.Gravity;
-
-        if (_characterController.IsOnGround)
-        {
-            _characterController.Velocity = _characterController.Velocity.WithZ(0);
-            _characterController.Accelerate(WishVelocity);
-            _characterController.ApplyFriction(GroundControl);
-        }
-        else
-        {
-            _characterController.Velocity += gravity * Time.Delta * 0.5f;
-            _characterController.Accelerate(WishVelocity.ClampLength(MaxForce));
-            _characterController.ApplyFriction(AirControl);
-        }
-
-        _characterController.Move();
-
-        if (!_characterController.IsOnGround)
-        {
-            _characterController.Velocity += gravity * Time.Delta * 0.5f;
-        }
-        else
-        {
-            _characterController.Velocity = _characterController.Velocity.WithZ(0);
-        }
-    }
-
-    private void RotateBody()
-    {
-        if (Body is null) return;
-
-        var targetAngle = new Angles(0, Head.WorldRotation.Yaw(), 0).ToRotation();
-        var rotateDifference = Body.WorldRotation.Distance(targetAngle);
-
-        if (rotateDifference > 50f || _characterController.Velocity.Length > 10f)
-        {
-            Body.WorldRotation = Rotation.Lerp(Body.WorldRotation, targetAngle, Time.Delta * 3f);
-        }
-    }
-
-    private void Jump()
+    
+    /*private void Jump()
     {
         if (!_characterController.IsOnGround) return;
 
         Sound.Play( new SoundEvent("sounds/footsteps/footstep-grass-jump-start-004.vsnd_c") { UI = true, Volume = 2} );
         _characterController.Punch(Vector3.Up * JumpForce);
         _citizenAnimationHelper?.TriggerJump();
-    }
-
-    private void UpdateAnimations()
-    {
-        if (_citizenAnimationHelper is null) return;
-
-        _citizenAnimationHelper.WithWishVelocity(WishVelocity);
-        _citizenAnimationHelper.WithVelocity(WishVelocity);
-        _citizenAnimationHelper.AimAngle = Head.WorldRotation;
-        _citizenAnimationHelper.IsGrounded = _characterController.IsOnGround;
-        _citizenAnimationHelper.WithLook(Head.WorldRotation.Forward, 1f, 0.75f, 0.5f);
-        _citizenAnimationHelper.MoveStyle = CitizenAnimationHelper.MoveStyles.Run;
-        _citizenAnimationHelper.DuckLevel = IsCrouching ? 1f : 0f;
-    }
+    }*/
 
     private void StartAction(bool isActive, float actionSpeed, long actionAmount, GenericColliderController.ActionType actionType)
     {
@@ -275,6 +149,7 @@ public sealed class PlayerActions : Component
         if (_soundTimer >= 1f)
         {
             PlaySound(actionType);
+            Punch();
         }
 
         if (Timer >= actionSpeed)
@@ -302,7 +177,6 @@ public sealed class PlayerActions : Component
 
     private void PlaySound(GenericColliderController.ActionType action)
     {
-        Punch();
         switch (action)
         {
 	        case GenericColliderController.ActionType.Cutting:
@@ -334,7 +208,7 @@ public sealed class PlayerActions : Component
             _citizenAnimationHelper.HoldType = CitizenAnimationHelper.HoldTypes.None;
         }
     }
-    private void PlayFootStepSound()
+    /*private void PlayFootStepSound()
     {
 	    if (_characterController.IsOnGround && _characterController.Velocity.Length > 0)
 	    {
@@ -357,16 +231,16 @@ public sealed class PlayerActions : Component
 	    {
 		    _footStepTimer = 0f;
 	    }
-    }
+    }*/
     
-    private void HandleLandingSound()
+    /*private void HandleLandingSound()
     {
 	    if (_wasInAir && _characterController.IsOnGround)
 	    {
 		    Sound.Play(new SoundEvent("sounds/footsteps/footstep-gravel-jump-land-004.vsnd_c") { UI = true, Volume = 2});
 	    }
 	    _wasInAir = !_characterController.IsOnGround;
-    }
+    }*/
     
     public void BuyUpgrade(string upgrade)
 	{

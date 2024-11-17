@@ -24,8 +24,8 @@ public sealed class NavMeshTest : Component
 			{
 				agent.MoveTo( Player.Transform.World.Position );
 				_citizenAnimationHelper.WithVelocity(70);
-				_citizenAnimationHelper.AimAngle = Player.Head.WorldRotation;
-				_citizenAnimationHelper.WithLook(Player.Head.WorldRotation.Forward, 1f, 0.75f, 0.5f);
+				/*_citizenAnimationHelper.AimAngle = Player.Head.WorldRotation;
+				_citizenAnimationHelper.WithLook(Player.Head.WorldRotation.Forward, 1f, 0.75f, 0.5f);*/
 				_citizenAnimationHelper.MoveStyle = CitizenAnimationHelper.MoveStyles.Run;
 			}
 		}
