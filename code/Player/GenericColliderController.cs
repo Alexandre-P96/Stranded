@@ -15,7 +15,8 @@ public sealed class GenericColliderController : Component
     public enum ActionType
     {
         Cutting,
-        Rocking
+        Rocking,
+        Fishing
     }
 
     protected override void OnUpdate()
@@ -39,7 +40,7 @@ public sealed class GenericColliderController : Component
     {
 	    SceneTraceResult = Scene.Trace.FromTo(Player.Head.WorldPosition, Player.Head.WorldPosition + Player.Head.WorldRotation.Forward * 30)
 		    .Size(30f)
-		    .WithAnyTags("tree", "rock")
+		    .WithAnyTags("tree", "rock", "water")
 		    .Run();
     }
 
@@ -65,9 +66,14 @@ public sealed class GenericColliderController : Component
 	    {
 		    SetPlayerCutting(true);
 	    }
-	    else if (SceneTraceResult.Tags.Contains("rock"))
+	    else if ( SceneTraceResult.Tags.Contains( "rock" ) )
 	    {
-		    SetPlayerRocking(true);
+		    SetPlayerRocking( true );
+	    }
+	    else if ( SceneTraceResult.Tags.Contains( "water" ) )
+	    {
+		    Log.Info("water");
+		    Player.Player.WalkSpeed = 0;
 	    }
 
 	    CanStartAction = false;
@@ -97,6 +103,11 @@ public sealed class GenericColliderController : Component
 	    CanStartAction = true;
 	    Player.Timer = 0f;
 	    DelayOnActionChecking = 0f;
+	    
+	    if ( !SceneTraceResult.Tags.Contains( "water" ) )
+	    {
+		    Player.Player.WalkSpeed = 110;
+	    }
     }
 
     private void SetPlayerCutting(bool isActive)
