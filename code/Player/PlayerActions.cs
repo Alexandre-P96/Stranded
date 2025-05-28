@@ -24,6 +24,7 @@ public sealed class PlayerActions : Component
     public ClothingContainer ClothingContainer;
     public bool IsCutting = false;
     public bool IsRocking = false;
+    public bool IsFishing = false;
     private CitizenAnimationHelper _citizenAnimationHelper;
     public float CuttingSpeed = 1f;
     public float MiningSpeed = 1f;

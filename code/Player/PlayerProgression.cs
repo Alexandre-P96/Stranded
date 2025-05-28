@@ -1,5 +1,4 @@
 using System;
-using Sandbox;
 using Sandbox.Player;
 
 public static class PlayerProgression

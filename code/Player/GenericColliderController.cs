@@ -73,7 +73,7 @@ public sealed class GenericColliderController : Component
 	    else if ( SceneTraceResult.Tags.Contains( "water" ) )
 	    {
 		    Log.Info("water");
-		    Player.Player.WalkSpeed = 0;
+		    SetPlayerFishing( true );
 	    }
 
 	    CanStartAction = false;
@@ -84,6 +84,7 @@ public sealed class GenericColliderController : Component
 	    Sound.Play(StopSound);
 	    SetPlayerCutting(false);
 	    SetPlayerRocking(false);
+	    SetPlayerFishing( false );
 	    CanStartAction = true;
 	    Player.Timer = 0f;
     }
@@ -112,18 +113,32 @@ public sealed class GenericColliderController : Component
 
     private void SetPlayerCutting(bool isActive)
     {
-        if (CurrentActionType == ActionType.Cutting)
-            Player.IsCutting = isActive;
+        Player.IsCutting = isActive;
     }
     
     private void SetPlayerRocking(bool isActive)
     {
-		if (CurrentActionType == ActionType.Rocking)
-		    Player.IsRocking = isActive;
+		Player.IsRocking = isActive;
+    }
+
+    private void SetPlayerFishing( bool isActive )
+    {
+	    Player.Player.WalkSpeed = 0;
+	    Player.IsFishing = isActive;
+	    if ( !isActive )
+	    {
+		    Player.Player.WalkSpeed = 110;
+	    }
     }
 
     private bool IsPlayerActionActive()
     {
-        return CurrentActionType == ActionType.Cutting ? Player.IsCutting : Player.IsRocking;
+	    return CurrentActionType switch
+	    {
+		    ActionType.Cutting => Player.IsCutting,
+		    ActionType.Rocking => Player.IsRocking,
+		    ActionType.Fishing => Player.IsFishing,
+		    _ => false
+	    };
     }
 }
