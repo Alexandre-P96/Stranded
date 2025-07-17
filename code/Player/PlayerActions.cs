@@ -1,12 +1,15 @@
 using System;
 using System.Runtime.CompilerServices;
 using Sandbox.Citizen;
+using Sandbox.NPCs;
+using Sandbox.NPCs.Wanderers;
 
 namespace Sandbox.Player;
 
 public sealed class PlayerActions : Component
 {
 	[Property] public PlayerController Player { get; set; }
+	[Property] public GameObject PlayerCamera { get; set; }
     [Property] public float Health { get; set; } = 100f;
     [Property] public float MaxHealth { get; set; } = 100f;
     [Property] public long Logs { get; set; }
@@ -35,6 +38,7 @@ public sealed class PlayerActions : Component
     private float _saveTimer;
     private TimeSince _lastPunch;
     private SoundEvent ResourceGained = new("sounds/kenney/ui/drop_002.vsnd_c") { UI = true, Volume = 2};
+    private SceneTraceResult SceneTraceResult;
 
 	protected override void OnStart()
     {
@@ -110,7 +114,7 @@ public sealed class PlayerActions : Component
 
     private void HandleInput()
     {
-        if (Input.Pressed("attack1") && _lastPunch >= PunchCooldown)
+        if (Input.Pressed("attack1") /*&& _lastPunch >= PunchCooldown*/)
             Punch();
 
         if (_lastPunch >= PunchCooldown + 1)
@@ -130,15 +134,6 @@ public sealed class PlayerActions : Component
             ActiveSlot = ((ActiveSlot + Math.Sign(Input.MouseWheel.y)) % Slots) + Slots;
         }
     }
-    
-    /*private void Jump()
-    {
-        if (!_characterController.IsOnGround) return;
-
-        Sound.Play( new SoundEvent("sounds/footsteps/footstep-grass-jump-start-004.vsnd_c") { UI = true, Volume = 2} );
-        _characterController.Punch(Vector3.Up * JumpForce);
-        _citizenAnimationHelper?.TriggerJump();
-    }*/
 
     private void StartAction(bool isActive, float actionSpeed, long actionAmount, GenericColliderController.ActionType actionType)
     {
@@ -192,6 +187,38 @@ public sealed class PlayerActions : Component
 
     private void Punch()
     {
+	    Log.Info("Punching!");
+	    var start = Player.WorldPosition + Vector3.Up * 67f; // Eye level
+	    var forward = PlayerCamera.WorldRotation.Forward;
+	    var end = start + forward * 3000f;
+
+	    SceneTraceResult = Scene.Trace.FromTo(start, end)
+		    .Size(10f)
+		    .WithAnyTags("NPC")
+		    .Run();
+	    
+	    DebugOverlay.Line(start, end, Color.Yellow);
+
+	    if (SceneTraceResult.Hit)
+	    {
+		    Log.Info(SceneTraceResult.GameObject);
+
+		    var npc = SceneTraceResult.GameObject.Components.Get<WanderersNpc>();
+    
+		    if (npc != null)
+		    {
+			    Log.Info("Hit a Wanderer NPC!");
+			    npc.Health -= 50;
+			    Log.Info(npc.Health);
+		    }
+		    else
+		    {
+			    Log.Info("Hit something that's not a Wanderer NPC");
+		    }
+
+		    Log.Info("Hit something!");
+	    }
+	    
         if (_citizenAnimationHelper != null)
         {
             _citizenAnimationHelper.HoldType = CitizenAnimationHelper.HoldTypes.Punch;
@@ -209,39 +236,6 @@ public sealed class PlayerActions : Component
             _citizenAnimationHelper.HoldType = CitizenAnimationHelper.HoldTypes.None;
         }
     }
-    /*private void PlayFootStepSound()
-    {
-	    if (_characterController.IsOnGround && _characterController.Velocity.Length > 0)
-	    {
-		    _footStepTimer += Time.Delta;
-		    if (_footStepTimer >= _footStepInterval)
-		    {
-			    Sound.Play("footstep-grass");
-			    _footStepTimer = 0f;
-		    } 
-		    else if( IsSprinting )
-		    {
-			    if (_footStepTimer >= _footStepInterval / 1.40)
-			    {
-				    Sound.Play("footstep-grass");
-				    _footStepTimer = 0f;
-			    } 
-		    }
-	    }
-	    else
-	    {
-		    _footStepTimer = 0f;
-	    }
-    }*/
-    
-    /*private void HandleLandingSound()
-    {
-	    if (_wasInAir && _characterController.IsOnGround)
-	    {
-		    Sound.Play(new SoundEvent("sounds/footsteps/footstep-gravel-jump-land-004.vsnd_c") { UI = true, Volume = 2});
-	    }
-	    _wasInAir = !_characterController.IsOnGround;
-    }*/
     
     public void BuyUpgrade(string upgrade)
 	{
