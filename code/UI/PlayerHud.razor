@@ -1,79 +1,114 @@
+@using System
 @using Sandbox;
 @using Sandbox.Player
 @using Sandbox.UI;
 @inherits PanelComponent
 
-<root xmlns="http://www.w3.org/1999/html">
-	<div>
-		@if ( Player.IsRocking )
-		{
-			@:<div class="activity">Currently mining stone</div>
-		} 
-		else if ( Player.IsCutting )
-		{
-			@:<div class="activity">Currently cutting trees</div>
-		}
-		else
-		{
-			@:<div class="activity">Currently Idle</div>
-		}
-	</div>
-	<div class="vitals">
-		<p>🧱
-			<div class="logs">
-				@Player.Rocks
-			</div>
-		</p>
-		<div class="cutting-bars">
-			<div class="cutting-bar">
-				<div class="inner">
-					<div class="fill" style="width: @( Player.IsRocking ? (Player.Timer / Player.MiningSpeed * 100f) : 0 )%">
-					</div>
-				</div>
-			</div>
-		</div>
+<root>
+  <div class="activity">
+    @if (Player.IsRocking)
+    {
+      <span>Currently mining stone</span>
+    }
+    else if (Player.IsCutting)
+    {
+      <span>Currently cutting trees</span>
+    }
+    else
+    {
+      <span>Currently Idle</span>
+    }
+  </div>
+  
+  <div class="vitals">
+    <div class="resource-container">
+      <span class="resource-icon">🧱</span>
+      <div class="logs">@Player.Rocks</div>
+    </div>
+    <div class="cutting-bars">
+      <div class="cutting-bar">
+        <div class="inner">
+          <div class="fill" style="width: @(Player.IsRocking ? (Player.Timer / Player.MiningSpeed * 100f) : 0)%"></div>
+        </div>
+      </div>
+    </div>
 
-		<p>🌳
-			<div class="logs">
-				@Player.Logs
-			</div>
-		</p>
-		<div class="cutting-bars">
-			<div class="cutting-bar">
-				<div class="inner">
-					<div class="fill" style="width: @( Player.IsCutting ? (Player.Timer / Player.CuttingSpeed * 100f) : 0 )%">
-					</div>
-				</div>
-			</div>
-		</div>
+    <div class="resource-container">
+      <span class="resource-icon">🌳</span>
+      <div class="logs">@Player.Logs</div>
+    </div>
+    <div class="cutting-bars">
+      <div class="cutting-bar">
+        <div class="inner">
+          <div class="fill" style="width: @(Player.IsCutting ? (Player.Timer / Player.CuttingSpeed * 100f) : 0)%"></div>
+        </div>
+      </div>
+    </div>
+  </div>
 
-	</div>
+  <div class="exp-panel">
+    <div class="skill">
+      <div class="icon">🌳</div>
+      <div class="info">
+        <div class="name">Woodcutting</div>
+        <div class="exp-bar">
+          <div class="fill" style="width: @GetExpPercentage(Player.WoodcuttingExperience, Player.WoodcuttingLevel)%"></div>
+        </div>
+        <div class="stats">
+          <span class="xp">@Player.WoodcuttingExperience XP</span>
+          <span class="level">@Player.WoodcuttingLevel</span>
+        </div>
+      </div>
+    </div>
+    
+    <div class="skill">
+      <div class="icon">🧱</div>
+      <div class="info">
+        <div class="name">Mining</div>
+        <div class="exp-bar">
+          <div class="fill" style="width: @GetExpPercentage(Player.MiningExperience, Player.MiningLevel)%"></div>
+        </div>
+        <div class="stats">
+          <span class="xp">@Player.MiningExperience XP</span>
+          <span class="level">@Player.MiningLevel</span>
+        </div>
+      </div>
+    </div>
+  </div>
 
-	<div style="font-size: 100px; margin-top: 45px; display: flex; flex-direction: column;">
-		<p>Experience: @Player.WoodcuttingExperience</p>
-		<p>Level: @Player.WoodcuttingLevel</p>
-	</div>
-	<div style="font-size: 100px; margin-top: 45px; display: flex; flex-direction: column;">
-		<p>Experience: @Player.MiningExperience</p>
-		<p>Level: @Player.MiningLevel</p>
-	</div>
-
-	<div class="hotbar">
-		@for ( int i = 0; i < Player.Slots; i++ )
-		{
-			<div class="slot @( (Player.ActiveSlot == i) ? "active" : "" )">
-
-			</div>
-		}
-	</div>
+  <div class="hotbar">
+    @for (int i = 0; i < Player.Slots; i++)
+    {
+      <div class="slot @((Player.ActiveSlot == i) ? "active" : "")"></div>
+    }
+  </div>
 </root>
 
 @code
 {
     [Property] PlayerActions Player { get; set; }
 
-	/// <summary>
-	/// the hash determines if the system should be rebuilt. If it changes, it will be rebuilt
-	/// </summary>
-	protected override int BuildHash() => System.HashCode.Combine( Player.Logs, Player.Rocks, Player.ActiveSlot, Player.Timer );
+    private float GetExpPercentage(long experience, int currentLevel)
+    {
+        // Using the actual XP calculation from PlayerProgression.cs
+        int xpRequired = CalculateXpRequired(currentLevel);
+        
+        // Calculate percentage of progress towards next level
+        float percentage = (float)experience / xpRequired * 100f;
+        return Math.Min(100, Math.Max(0, percentage));
+    }
+
+    private int CalculateXpRequired(int level)
+    {
+        // Copied from PlayerProgression.cs
+        int baseXp = 500;
+        double xpModifier = 1.2;
+        return (int)(baseXp * Math.Pow(level, xpModifier));
+    }
+
+    protected override int BuildHash() => System.HashCode.Combine(
+        Player.Logs, Player.Rocks, Player.ActiveSlot, Player.Timer,
+        Player.WoodcuttingExperience, Player.MiningExperience,
+        Player.WoodcuttingLevel, Player.MiningLevel
+    );
 }

@@ -7,88 +7,176 @@ PlayerHud
 	bottom: 0;
 	font-family: "ＭＳ Ｐゴシック";
 	font-size: 12px;
-	
-	> .vitals
-	{
+
+	.activity {
+		position: absolute;
+		top: 10px;
+		left: 20px;
+		font-size: 40px;
+		text-stroke: 3px black;
+		z-index: 1;
+	}
+
+	.vitals {
 		position: absolute;
 		bottom: 50px;
 		left: 32px;
 		font-size: 32px;
 		font-weight: bold;
 		color: #764217;
+		display: flex;
 		flex-direction: column;
-		align-items: center;
-	}
-	
-	.activity 
-	{
-		position: absolute;
-		height: 100%;
-		top: 10px;
-		left: 20px;
-		font-size: 40px;
-		text-stroke: 3px black;
-		z-index: 1;
-		padding: 3.5px;
+		align-items: flex-start;
 	}
 
-	.logs
-	{
+	.logs {
 		padding-top: 3px;
 		font-size: 40px;
 		text-stroke: 3px black;
 	}
-	
-	> .hotbar
-	{
+
+	.resource-container {
+		display: flex;
+		align-items: center;
+		gap: 10px;
+	}
+
+	.resource-icon {
+		font-size: 40px;
+	}
+
+	.cutting-bars {
+		position: relative;
+		left: 1px;
+		width: 100%;
+
+		.cutting-bar {
+			width: 150px;
+			height: 20px;
+			background-color: black;
+			padding: 3.5px;
+
+			.inner {
+				background-color: grey;
+				flex-grow: 1;
+				height: 100%;
+
+				.fill {
+					background-color: green;
+					height: 100%;
+				}
+			}
+		}
+	}
+
+	.hotbar {
 		position: absolute;
 		bottom: 32px;
 		width: 100%;
 		z-index: 1;
+		display: flex;
 		gap: 8px;
 		justify-content: center;
 		align-items: flex-end;
-		
-		> .slot
-		{
+
+		.slot {
 			width: 64px;
 			height: 64px;
 			background-color: #313131;
 			border-radius: 16px;
 			transition: all 0.2s ease;
-			
-			&.active
-			{
+
+			&.active {
 				background-color: #8d8d8d;
 				width: 96px;
 				height: 96px;
 			}
 		}
 	}
-	
-	.cutting-bars
-	{
-		position: relative;
-		left: 1px;
-		
-		.cutting-bar
-		{
-			width: 150px;
-			height: 20px;
-			background-color: black;
-			padding: 3.5px;
 
-			.inner{
-				background-color: grey;
-				flex-grow: 1;
-				
-				.fill
-				{
-					background-color: green;
-					width: 50%;
-					height: 100%;
+	// Experience panel - completely redesigned
+	.exp-panel {
+		position: absolute;
+		bottom: 40px;
+		right: 40px;
+		background-color: rgba(0, 0, 0, 0.7);
+		border-radius: 12px;
+		padding: 15px;
+		width: 325px;
+		display: flex;
+		flex-direction: column;
+		gap: 15px;
+
+		.skill {
+			display: flex;
+			gap: 10px;
+
+			.icon {
+				font-size: 35px;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+			}
+
+			.info {
+				flex: 1;
+				display: flex;
+				flex-direction: column;
+				gap: 5px;
+
+				.name {
+					color: white;
+					font-size: 25px;
+					font-weight: bold;
+					white-space: nowrap;
+					text-shadow: 1px 1px 2px black;
 				}
-				
+
+				.exp-bar {
+					height: 12px;
+					background-color: #222;
+					border-radius: 5px;
+					overflow: hidden;
+					position: relative;
+
+					.fill {
+						height: 100%;
+						position: absolute;
+						left: 0;
+						top: 0;
+						border-radius: 5px;
+						transition: width 0.3s ease;
+					}
+				}
+			}
+
+			&:first-child .fill {
+				background-color: #4CAF50;
+			}
+
+			&:last-child .fill {
+				background-color: #FF9800;
+			}
+
+			.stats {
+				display: flex;
+				justify-content: space-between;
+
+				.xp {
+					font-size: 22px;
+					font-weight: bold;
+					color: #ddd;
+					white-space: nowrap;
+				}
+
+				.level {
+					font-size: 26px;
+					font-weight: bold;
+					color: greenyellow;
+					background-color: rgba(0, 0, 0, 0.4);
+					border-radius: 4px;
+					padding: 2px 8px;
+				}
 			}
 		}
 	}

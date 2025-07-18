@@ -16,6 +16,11 @@ public sealed class NavigationTargetWanderer : Component
 	// The position the NPC is currently moving toward
 	private Vector3 _currentTarget = Vector3.Zero;
 	private bool _isWandering = false;
+	
+	// Add this field to track when the target was lost
+	private TimeSince _timeSinceLostTarget;
+	private readonly float _wanderCooldown = 3f; // Cooldown before wandering again after losing target
+	private bool _wasChasing = false;
     
 	protected override void OnEnabled()
 	{
@@ -28,22 +33,35 @@ public sealed class NavigationTargetWanderer : Component
 		Agent.MoveTo(_currentTarget); // Move toward the current target
 		UpdateAnimation(); // Update animation parameters
 	}
-
-	// Decides what the NPC should target
+	
 	private void UpdateTarget()
 	{
-		var closest = FindClosestTargetWithinRadius(); // Look for a close target
+		var closest = FindClosestTargetWithinRadius();
+
 		if (closest != null)
 		{
-			SetChaseTarget(closest); // If found, chase it
+			SetChaseTarget(closest);
+			_wasChasing = true;
+		}
+		else if (_wasChasing)
+		{
+			// Target was lost, start cooldown
+			_wasChasing = false;
+			_timeSinceLostTarget = 0;
+    
+			// Stop movement by setting current target to current position
+			_currentTarget = WorldPosition;
 		}
 		else
 		{
-			UpdateWanderTarget(); // Otherwise, wander
+			// No target and either wasn't chasing or cooldown expired
+			if (_timeSinceLostTarget >= _wanderCooldown)
+			{
+				UpdateWanderTarget();
+			}
 		}
 	}
-
-	// Finds the closest target within the wander radius
+	
 	private GameObject FindClosestTargetWithinRadius()
 	{
 		GameObject closest = null;

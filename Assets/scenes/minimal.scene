@@ -544,12 +544,12 @@
           ]
         },
         {
-          "__guid": "d1c21461-32bb-4fdf-95d1-f313a82df4be",
+          "__guid": "0b1f2f69-4fb4-4ad1-8a02-2132ea9ca5cf",
           "__version": 1,
           "Flags": 0,
-          "Name": "Workbench",
-          "Position": "507.1428,560.0497,-70.67267",
-          "Rotation": "0,0,0.3826834,0.9238796",
+          "Name": "table_small",
+          "Position": "500.9843,539.0848,-70.82516",
+          "Rotation": "0,0,-0.3826834,0.9238796",
           "Scale": "1,1,1",
           "Tags": "workbench",
           "Enabled": true,
@@ -559,51 +559,23 @@
           "OwnerTransfer": 1,
           "Components": [
             {
-              "__type": "Sandbox.ModelCollider",
-              "__guid": "5532438d-82de-4ed8-b220-158f39bc8fa5",
-              "__enabled": true,
-              "Elasticity": null,
-              "Friction": null,
-              "IsTrigger": false,
-              "Model": "models/props/workbench/workbench_a.vmdl",
-              "OnComponentDestroy": null,
-              "OnComponentDisabled": null,
-              "OnComponentEnabled": null,
-              "OnComponentFixedUpdate": null,
-              "OnComponentStart": null,
-              "OnComponentUpdate": null,
-              "OnObjectTriggerEnter": null,
-              "OnObjectTriggerExit": null,
-              "OnTriggerEnter": null,
-              "OnTriggerExit": null,
-              "RollingResistance": null,
-              "Static": true,
-              "Surface": null,
-              "SurfaceVelocity": "0,0,0"
-            },
-            {
-              "__type": "Sandbox.ModelRenderer",
-              "__guid": "30a41aa2-ee93-4dc8-a409-b05eda9255fe",
+              "__type": "Sandbox.Prop",
+              "__guid": "1c160f1f-2b76-44bf-87ba-b7a65d10f288",
               "__enabled": true,
               "BodyGroups": 18446744073709551615,
-              "CreateAttachments": false,
+              "Health": 0,
+              "IsStatic": true,
               "MaterialGroup": null,
-              "MaterialOverride": null,
-              "Materials": null,
-              "Model": "models/props/workbench/workbench_a.vmdl",
+              "Model": "deggassets/models/fantasy/map/table_small.vmdl",
               "OnComponentDestroy": null,
               "OnComponentDisabled": null,
               "OnComponentEnabled": null,
               "OnComponentFixedUpdate": null,
               "OnComponentStart": null,
               "OnComponentUpdate": null,
-              "RenderOptions": {
-                "GameLayer": true,
-                "OverlayLayer": false,
-                "BloomLayer": false,
-                "AfterUILayer": false
-              },
-              "RenderType": "On",
+              "OnPropBreak": null,
+              "OnPropTakeDamage": null,
+              "StartAsleep": false,
               "Tint": "1,1,1,1"
             }
           ],
@@ -613,8 +585,8 @@
               "__version": 1,
               "Flags": 0,
               "Name": "Workbench Message",
-              "Position": "-6.646066,-2.042017,52.50462",
-              "Rotation": "0,0,0,1",
+              "Position": "-4.444623,-9.705455,48.36554",
+              "Rotation": "0,0,0.7071067,0.7071069",
               "Scale": "1,1,1",
               "Tags": "",
               "Enabled": true,
@@ -2737,20 +2709,21 @@
           {
             "Target": {
               "Type": "GameObject",
-              "IdValue": "13ab94cd-d6d5-4738-97d1-25bacc6d5f8f"
+              "IdValue": "362f2387-841e-444d-88cd-2c6f351db38a"
             },
             "Property": "Position",
-            "Value": "303.1718,-423.5624,10.79894"
+            "Value": "334.4281,-469.9583,10.79927"
           }
         ],
         "MovedObjects": []
       },
       "__PrefabIdToInstanceId": {
-        "13ab94cd-d6d5-4738-97d1-25bacc6d5f8f": "0b79ec0b-dd7b-4fdb-8aff-e88c841cc6c9",
-        "3bdfc647-a286-4a27-8e3e-02c2548999ab": "8258d307-16fb-41e4-bb50-4d00c5090693",
-        "de086a27-5278-4ff7-a478-b8361535e304": "8d18a39a-9a47-481a-84ef-d25cffb8b292",
-        "b8257bd2-44e3-444a-9399-9c69ff344452": "0771a0cf-758a-47ca-8989-b637d048f04c",
-        "dc91d08e-79c8-4a81-bc2d-dbb588e9e574": "593c4333-b103-4949-aacc-d646b3829d29"
+        "362f2387-841e-444d-88cd-2c6f351db38a": "0b79ec0b-dd7b-4fdb-8aff-e88c841cc6c9",
+        "4fd26246-4e6b-4027-8f77-152d5eb8b42e": "8258d307-16fb-41e4-bb50-4d00c5090693",
+        "5ff35ba9-26f6-41d1-a40b-7d10e141c9c4": "8d18a39a-9a47-481a-84ef-d25cffb8b292",
+        "8d76dfbc-5dfd-4e00-9bbc-324d84ef2d26": "0771a0cf-758a-47ca-8989-b637d048f04c",
+        "72c18a02-9970-47ae-9980-8eb55f842424": "0b7cfa39-f6c1-4ce3-9f88-f499347a18bc",
+        "6da93cdc-fbd4-4e95-8a6d-d3ad9bf36d1d": "4267abcf-480f-42a0-a532-88531e7ec51c"
       }
     },
     {
@@ -2883,10 +2856,10 @@
   "Title": "main",
   "Description": null,
   "__references": [
+    "degg.f_table_small#8208",
     "exorealms.17c1531bdc5c7b13#41168",
     "facepunch.floor_dirt_d#57785",
     "facepunch.floor_riverbed_dirt_blend_a#18673",
-    "fpopium.workbench_a#54870",
     "gbonn.brickwall02#49284",
     "mufamoof.dev_water#30719",
     "nolankicks.lake_water#65330",
