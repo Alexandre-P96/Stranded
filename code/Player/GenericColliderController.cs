@@ -55,7 +55,7 @@ public sealed class GenericColliderController : Component
 	    var end = start + forward * 30f;
 
 	    SceneTraceResult = Scene.Trace.FromTo(start, end)
-		    .Size(10f)
+		    .Size(15f)
 		    .WithAnyTags("tree", "rock", "water")
 		    .Run();
     

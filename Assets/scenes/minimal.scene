@@ -2712,7 +2712,28 @@
               "IdValue": "362f2387-841e-444d-88cd-2c6f351db38a"
             },
             "Property": "Position",
-            "Value": "334.4281,-469.9583,10.79927"
+            "Value": "44.18635,288.0815,10.79875"
+          },
+          {
+            "Target": {
+              "Type": "GameObject",
+              "IdValue": "362f2387-841e-444d-88cd-2c6f351db38a"
+            },
+            "Property": "Enabled",
+            "Value": false
+          },
+          {
+            "Target": {
+              "Type": "Component",
+              "IdValue": "6da93cdc-fbd4-4e95-8a6d-d3ad9bf36d1d"
+            },
+            "Property": "PotentialTargets",
+            "Value": [
+              {
+                "_type": "gameobject",
+                "go": "c596ac7f-eff5-4bd4-a845-e69517e13d3f"
+              }
+            ]
           }
         ],
         "MovedObjects": []
@@ -2727,109 +2748,69 @@
       }
     },
     {
-      "__guid": "34751648-7c29-42b0-8973-20e0b813931e",
+      "__guid": "d8855716-dbd7-4227-a5a9-a03a648155e2",
       "__version": 1,
-      "Flags": 0,
-      "Name": "Wanderer (1)",
-      "Position": "-124.0284,-96.27914,21.58147",
-      "Rotation": "0,0,0,1",
-      "Scale": "1,1,1",
-      "Tags": "",
-      "Enabled": false,
-      "NetworkMode": 2,
-      "NetworkInterpolation": true,
-      "NetworkOrphaned": 0,
-      "OwnerTransfer": 1,
-      "Components": [
-        {
-          "__type": "Sandbox.NavMeshAgent",
-          "__guid": "28114584-9c2a-47fc-a151-dc40ae7d6d2f",
-          "__enabled": true,
-          "Acceleration": 120,
-          "AutoTraverseLinks": true,
-          "Height": 64,
-          "MaxSpeed": 120,
-          "OnComponentDestroy": null,
-          "OnComponentDisabled": null,
-          "OnComponentEnabled": null,
-          "OnComponentFixedUpdate": null,
-          "OnComponentStart": null,
-          "OnComponentUpdate": null,
-          "Radius": 16,
-          "Separation": 0.25,
-          "UpdatePosition": true,
-          "UpdateRotation": true
-        },
-        {
-          "__type": "Sandbox.SkinnedModelRenderer",
-          "__guid": "0be185d6-5bdd-467d-bc9c-ca5db438910b",
-          "__enabled": true,
-          "AnimationGraph": null,
-          "BodyGroups": 341,
-          "BoneMergeTarget": null,
-          "CreateAttachments": false,
-          "CreateBoneObjects": false,
-          "MaterialGroup": null,
-          "MaterialOverride": null,
-          "Materials": null,
-          "Model": "models/citizen/citizen.vmdl",
-          "Morphs": {},
-          "OnComponentDestroy": null,
-          "OnComponentDisabled": null,
-          "OnComponentEnabled": null,
-          "OnComponentFixedUpdate": null,
-          "OnComponentStart": null,
-          "OnComponentUpdate": null,
-          "Parameters": {
-            "bools": {},
-            "ints": {},
-            "floats": {},
-            "vectors": {},
-            "rotations": {}
+      "__Prefab": "prefabs/wandererprefab.prefab",
+      "__PrefabInstancePatch": {
+        "AddedObjects": [],
+        "RemovedObjects": [],
+        "PropertyOverrides": [
+          {
+            "Target": {
+              "Type": "GameObject",
+              "IdValue": "362f2387-841e-444d-88cd-2c6f351db38a"
+            },
+            "Property": "Name",
+            "Value": "Wanderer (1)"
           },
-          "PlaybackRate": 1,
-          "RenderOptions": {
-            "GameLayer": true,
-            "OverlayLayer": false,
-            "BloomLayer": false,
-            "AfterUILayer": false
+          {
+            "Target": {
+              "Type": "GameObject",
+              "IdValue": "362f2387-841e-444d-88cd-2c6f351db38a"
+            },
+            "Property": "Position",
+            "Value": "334.4281,-107.7228,10.79927"
           },
-          "RenderType": "On",
-          "Sequence": {
-            "Name": null,
-            "Looping": true,
-            "Blending": false
+          {
+            "Target": {
+              "Type": "GameObject",
+              "IdValue": "362f2387-841e-444d-88cd-2c6f351db38a"
+            },
+            "Property": "Enabled",
+            "Value": false
           },
-          "Tint": "1,1,1,1",
-          "UseAnimGraph": true
-        },
-        {
-          "__type": "Sandbox.CapsuleCollider",
-          "__guid": "10f383ce-6f44-4ae1-9232-575cb94310fa",
-          "__enabled": true,
-          "Elasticity": null,
-          "End": "0,0,10",
-          "Friction": null,
-          "IsTrigger": false,
-          "OnComponentDestroy": null,
-          "OnComponentDisabled": null,
-          "OnComponentEnabled": null,
-          "OnComponentFixedUpdate": null,
-          "OnComponentStart": null,
-          "OnComponentUpdate": null,
-          "OnObjectTriggerEnter": null,
-          "OnObjectTriggerExit": null,
-          "OnTriggerEnter": null,
-          "OnTriggerExit": null,
-          "Radius": 16,
-          "RollingResistance": null,
-          "Start": "0,0,60.20005",
-          "Static": false,
-          "Surface": null,
-          "SurfaceVelocity": "0,0,0"
-        }
-      ],
-      "Children": []
+          {
+            "Target": {
+              "Type": "Component",
+              "IdValue": "6da93cdc-fbd4-4e95-8a6d-d3ad9bf36d1d"
+            },
+            "Property": "PotentialTargets",
+            "Value": [
+              {
+                "_type": "gameobject",
+                "go": "0b79ec0b-dd7b-4fdb-8aff-e88c841cc6c9"
+              }
+            ]
+          },
+          {
+            "Target": {
+              "Type": "Component",
+              "IdValue": "6da93cdc-fbd4-4e95-8a6d-d3ad9bf36d1d"
+            },
+            "Property": "WanderRadius",
+            "Value": 45000
+          }
+        ],
+        "MovedObjects": []
+      },
+      "__PrefabIdToInstanceId": {
+        "362f2387-841e-444d-88cd-2c6f351db38a": "d8855716-dbd7-4227-a5a9-a03a648155e2",
+        "4fd26246-4e6b-4027-8f77-152d5eb8b42e": "5f52e641-d5fd-4fe2-924b-fec6d54f0c61",
+        "5ff35ba9-26f6-41d1-a40b-7d10e141c9c4": "0623af55-e717-44da-9adb-2677cca260eb",
+        "8d76dfbc-5dfd-4e00-9bbc-324d84ef2d26": "ed789a1f-1848-42d6-97e2-4072ef7164f0",
+        "72c18a02-9970-47ae-9980-8eb55f842424": "5af52093-ceb9-428b-94a7-7d4ec3dacbff",
+        "6da93cdc-fbd4-4e95-8a6d-d3ad9bf36d1d": "589e610d-2c41-47d2-ac01-b756e5cd4897"
+      }
     }
   ],
   "SceneProperties": {

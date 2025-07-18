@@ -49,15 +49,10 @@ public sealed class PlayerActions : Component
 
     protected override void OnUpdate()
     {
-        //UpdateCrouch();
         HandleInput();
-        //RotateBody();
-        //UpdateAnimations();
-       // PlayFootStepSound();
         StartAction(IsRocking, MiningSpeed, MiningAmount, GenericColliderController.ActionType.Rocking);
         StartAction(IsCutting, CuttingSpeed, CuttingAmount, GenericColliderController.ActionType.Cutting);
         SavePlayerData();
-        //HandleLandingSound();
     }
 
     private void SavePlayerData()
@@ -69,7 +64,11 @@ public sealed class PlayerActions : Component
 	    var playerData = new PlayerData
 	    {
 		    Wood = Logs,
-		    Rocks = Rocks
+		    Rocks = Rocks,
+		    MiningLevel = MiningLevel,
+		    MiningExperience = MiningExperience,
+		    WoodcuttingLevel = WoodcuttingLevel,
+		    WoodcuttingExperience = WoodcuttingExperience
 	    };
 	    PlayerData.Save(playerData);
 	    
@@ -84,7 +83,9 @@ public sealed class PlayerActions : Component
 		    var data = new PlayerData
 		    {
 			    MiningLevel = 1,
+			    MiningExperience = 0,
 			    WoodcuttingLevel = 1,
+			    WoodcuttingExperience = 0,
 			    Rocks = 0,
 			    Wood = 0,
 		    };
@@ -114,7 +115,7 @@ public sealed class PlayerActions : Component
 
     private void HandleInput()
     {
-        if (Input.Pressed("attack1") /*&& _lastPunch >= PunchCooldown*/)
+        if (Input.Pressed("attack1") && _lastPunch >= PunchCooldown)
             Punch();
 
         if (_lastPunch >= PunchCooldown + 1)
@@ -187,7 +188,6 @@ public sealed class PlayerActions : Component
 
     private void Punch()
     {
-	    Log.Info("Punching!");
 	    var start = Player.WorldPosition + Vector3.Up * 67f; // Eye level
 	    var forward = PlayerCamera.WorldRotation.Forward;
 	    var end = start + forward * 3000f;
